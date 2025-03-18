@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Type/NiUI_Type_Component.h" // ComponentTypes
-#include "Type/NiUI_Type_Core.h" // NiUICoreState
-#include "Type/NiUI_Type_Various.h" // 
-#include "Type/NiUI_Enum.h" // enums
+#include "Type/NiGui_Type_Component.h" // ComponentTypes
+#include "Type/NiGui_Type_Core.h" // NiGuiCoreState
+#include "Type/NiGui_Type_Various.h" // 
+#include "Type/NiGui_Enum.h" // enums
 #include "math/NiVec2.h" // NiVec2
-#include "Input/NiUI_Input.h" // NiUI_Input
-#include "Interface/NiUI_IDrawer.h"
-#include "Interface/NiUI_IDebug.h"
+#include "Input/NiGui_Input.h" // NiUI_Input
+#include "Interface/NiGui_IDrawer.h"
+#include "Interface/NiGui_IDebug.h"
 
 #include <unordered_map> // unordered_map
 #include <string> // string
@@ -17,11 +17,11 @@
 using NiID = unsigned int;
 
 /// UIクラス
-class NiUI
+class NiGui
 {
 public: /// コンストラクタとデストラクタ
-    NiUI() = default;
-    ~NiUI() = default;
+    NiGui() = default;
+    ~NiGui() = default;
 
 
 public: /// 一般
@@ -51,14 +51,14 @@ public: /// 一般
 public: /// UIコンポーネントの追加
     // ボタンの追加
     // ボタンのテクスチャ名、左上座標、サイズを指定してください。
-    static NiUI_ButtonState Button(
+    static NiGui_ButtonState Button(
         const std::string& _id,
         const std::string& _textureName,
         const NiVec4& _color,
         const NiVec2& _position,
         const NiVec2& _size,
-        NiUI_StandardPoint _anchor = NiUI_StandardPoint::LeftTop,
-        NiUI_StandardPoint _pivot = NiUI_StandardPoint::LeftTop
+        NiGui_StandardPoint _anchor = NiGui_StandardPoint::LeftTop,
+        NiGui_StandardPoint _pivot = NiGui_StandardPoint::LeftTop
     );
 
     // Divの追加
@@ -69,8 +69,8 @@ public: /// UIコンポーネントの追加
         const NiVec4& _color,
         const NiVec2& _position,
         const NiVec2& _size,
-        NiUI_StandardPoint _anchor = NiUI_StandardPoint::LeftTop,
-        NiUI_StandardPoint _pivot = NiUI_StandardPoint::LeftTop
+        NiGui_StandardPoint _anchor = NiGui_StandardPoint::LeftTop,
+        NiGui_StandardPoint _pivot = NiGui_StandardPoint::LeftTop
     );
 
     static void EndDiv();
@@ -83,8 +83,8 @@ public: /// UIコンポーネントの追加
         const NiVec4& _color,
         const NiVec2& _position,
         const NiVec2& _size,
-        const NiUI_StandardPoint _anchor = NiUI_StandardPoint::LeftTop,
-        const NiUI_StandardPoint _pivot = NiUI_StandardPoint::LeftTop
+        const NiGui_StandardPoint _anchor = NiGui_StandardPoint::LeftTop,
+        const NiGui_StandardPoint _pivot = NiGui_StandardPoint::LeftTop
     );
 
     static std::string DragItemArea(
@@ -93,8 +93,8 @@ public: /// UIコンポーネントの追加
         const NiVec4& _color,
         const NiVec2& _position,
         const NiVec2& _size,
-        const NiUI_StandardPoint _anchor = NiUI_StandardPoint::LeftTop,
-        const NiUI_StandardPoint _pivot = NiUI_StandardPoint::LeftTop
+        const NiGui_StandardPoint _anchor = NiGui_StandardPoint::LeftTop,
+        const NiGui_StandardPoint _pivot = NiGui_StandardPoint::LeftTop
     );
 
     static std::string DragItem(
@@ -103,8 +103,8 @@ public: /// UIコンポーネントの追加
         const NiVec4& _color,
         const NiVec2& _position,
         const NiVec2& _size,
-        const NiUI_StandardPoint _anchor = NiUI_StandardPoint::LeftTop,
-        const NiUI_StandardPoint _pivot = NiUI_StandardPoint::LeftTop
+        const NiGui_StandardPoint _anchor = NiGui_StandardPoint::LeftTop,
+        const NiGui_StandardPoint _pivot = NiGui_StandardPoint::LeftTop
     );
 
     // 座標自動計算を有効にする
@@ -114,8 +114,8 @@ public: /// UIコンポーネントの追加
 
     
 public: /// セッター
-    static void SetDrawer(IDrawer* _drawer) { drawer_ = _drawer; }
-    static void SetDebug(INiUIDebug* _debug) { debug_ = _debug; }
+    static void SetDrawer(INiGuiDrawer* _drawer) { drawer_ = _drawer; }
+    static void SetDebug(INiGuiDebug* _debug) { debug_ = _debug; }
     static void SetWindowInfo(const NiVec2& _size, const NiVec2& _leftTop) { size_ = _size; leftTop_ = _leftTop; }
     static void SetHoverSound(uint32_t _hoverSE) { io_.audioHnd.buttonHover = _hoverSE; }
     static void SetHoverSound(void* _hoverSE) { io_.audioHandler.buttonHover = _hoverSE; }
@@ -124,10 +124,10 @@ public: /// セッター
 
 
 public: /// ゲッター
-    static const NiUIIO& GetIO() { return io_; }
-    static const NiUICoreState& GetState() { return state_; }
-    static NiUISetting& GetSetting() { return setting_; }
-    static const NiUIStyle& GetStyle() { return style_; }
+    static const NiGuiIO& GetIO() { return io_; }
+    static const NiGuiCoreState& GetState() { return state_; }
+    static NiGuiSetting& GetSetting() { return setting_; }
+    static const NiGuiStyle& GetStyle() { return style_; }
 
     static std::string GetActiveComponentID() { return state_.componentID.active; }
     static std::string GetHoverComponentID() { return state_.componentID.hover; }
@@ -142,23 +142,23 @@ private: /// メンバ変数
 
     // 確認用フラグ
 
-    static NiUIIO           io_;
-    static NiUICoreState    state_;
-    static NiUISetting      setting_;
-    static NiUIStyle        style_;
+    static NiGuiIO           io_;
+    static NiGuiCoreState    state_;
+    static NiGuiSetting      setting_;
+    static NiGuiStyle        style_;
 
     // 入力データ
-    static NiUI_Input       input_;
+    static NiGui_Input       input_;
 
     // ウィンドウのサイズ
     static NiVec2           leftTop_;
     static NiVec2           size_;
 
     // 描画クラス
-    static IDrawer*         drawer_;
+    static INiGuiDrawer*         drawer_;
 
     // デバッグクラス
-    static INiUIDebug*      debug_;
+    static INiGuiDebug*      debug_;
 
     // コンポーネントのリスト
     static std::unordered_map<std::string, ButtonData> buttonImages_;
@@ -194,10 +194,10 @@ private: /// その他
     static void CheckValid_BeginFrame();
     static void CheckValid_DrawUI();
     static void JudgeClickRect(const NiVec2& _leftTop, const NiVec2& _size, NiUI_InputState& _istate);
-    static NiVec2 ComputeStandardPoint(NiUI_StandardPoint _stdpoint);
-    static NiVec2 ComputeLeftTop(const NiVec2& _position, const NiVec2& _size, const NiVec2& _parentSize, NiUI_StandardPoint _anchor, NiUI_StandardPoint _pivot);
+    static NiVec2 ComputeStandardPoint(NiGui_StandardPoint _stdpoint);
+    static NiVec2 ComputeLeftTop(const NiVec2& _position, const NiVec2& _size, const NiVec2& _parentSize, NiGui_StandardPoint _anchor, NiGui_StandardPoint _pivot);
     // 各種座標を取得
-    static void ComputeRect(NiUI_Transform2dEx& _transform, const NiUI_StandardPoint _anchor, const NiUI_StandardPoint _pivot);
+    static void ComputeRect(NiUI_Transform2dEx& _transform, const NiGui_StandardPoint _anchor, const NiGui_StandardPoint _pivot);
     static void ClearData();
     static void SavePreData();
     static void CopyInputData();

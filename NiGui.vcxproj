@@ -94,6 +94,9 @@
     <Lib>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Lib>
+    <BuildLog>
+      <Path>$(IntDir)$(MSBuildProjectName).log</Path>
+    </BuildLog>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -158,30 +161,33 @@
     <Lib>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Lib>
+    <BuildLog>
+      <Path>$(IntDir)$(MSBuildProjectName).log</Path>
+    </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Impl\Impl_Button.cpp" />
     <ClCompile Include="Impl\Impl_Div.cpp" />
     <ClCompile Include="Impl\Impl_DragItem.cpp" />
-    <ClCompile Include="Input\NiUI_Input.cpp" />
-    <ClCompile Include="Interface\NiUI_IDrawer.cpp" />
+    <ClCompile Include="Input\NiGui_Input.cpp" />
+    <ClCompile Include="Interface\NiGui_IDrawer.cpp" />
     <ClCompile Include="Math\NiVec2.cpp" />
     <ClCompile Include="Math\NiVec3.cpp" />
     <ClCompile Include="Math\NiVec4.cpp" />
-    <ClCompile Include="NiUI.cpp" />
+    <ClCompile Include="NiGui.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Input\NiUI_Input.h" />
-    <ClInclude Include="Interface\NiUI_IDebug.h" />
-    <ClInclude Include="Interface\NiUI_IDrawer.h" />
+    <ClInclude Include="Input\NiGui_Input.h" />
+    <ClInclude Include="Interface\NiGui_IDebug.h" />
+    <ClInclude Include="Interface\NiGui_IDrawer.h" />
     <ClInclude Include="Math\NiVec2.h" />
     <ClInclude Include="Math\NiVec3.h" />
     <ClInclude Include="Math\NiVec4.h" />
-    <ClInclude Include="NiUI.h" />
-    <ClInclude Include="Type\NiUI_Enum.h" />
-    <ClInclude Include="Type\NiUI_Type_Component.h" />
-    <ClInclude Include="Type\NiUI_Type_Core.h" />
-    <ClInclude Include="Type\NiUI_Type_Various.h" />
+    <ClInclude Include="NiGui.h" />
+    <ClInclude Include="Type\NiGui_Enum.h" />
+    <ClInclude Include="Type\NiGui_Type_Component.h" />
+    <ClInclude Include="Type\NiGui_Type_Core.h" />
+    <ClInclude Include="Type\NiGui_Type_Various.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E3E0F431-57AB-47BD-9CAD-DB622644B99C}</ProjectGuid>

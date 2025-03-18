@@ -7,7 +7,7 @@
 
 
 /// UI入力クラス
-class NiUI_Input
+class NiGui_Input
 {
 public:
     /// マウスデータ
@@ -25,8 +25,8 @@ public:
     };
 
 public: /// コンストラクタとデストラクタ
-    NiUI_Input() = default;
-    ~NiUI_Input() = default;
+    NiGui_Input() = default;
+    ~NiGui_Input() = default;
 
 
 public: /// 一般

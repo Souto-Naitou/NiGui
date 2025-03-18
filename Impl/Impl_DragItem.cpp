@@ -1,6 +1,6 @@
-#include "../NiUI.h"
+#include "../NiGui.h"
 
-std::string NiUI::DragItemArea(const std::string & _id, const std::string & _textureName, const NiVec4 & _color, const NiVec2 & _position, const NiVec2 & _size, const NiUI_StandardPoint _anchor, const NiUI_StandardPoint _pivot)
+std::string NiGui::DragItemArea(const std::string & _id, const std::string & _textureName, const NiVec4 & _color, const NiVec2 & _position, const NiVec2 & _size, const NiGui_StandardPoint _anchor, const NiGui_StandardPoint _pivot)
 {
     NiUI_Transform2dEx transformEx = {};
     transformEx.position = _position;
@@ -30,7 +30,7 @@ std::string NiUI::DragItemArea(const std::string & _id, const std::string & _tex
     return result;
 }
 
-std::string NiUI::DragItemAreaBehavior(const std::string& _id, bool _isHover, bool _isTrigger, NiUI_Transform2dEx& _transform, const NiVec2& _leftTop)
+std::string NiGui::DragItemAreaBehavior(const std::string& _id, bool _isHover, bool _isTrigger, NiUI_Transform2dEx& _transform, const NiVec2& _leftTop)
 {
     SetComponentId({ .isHover = _isHover, .isTrigger = _isTrigger }, _id, "DragItemArea");
 
@@ -46,7 +46,7 @@ std::string NiUI::DragItemAreaBehavior(const std::string& _id, bool _isHover, bo
     
 }
 
-std::string NiUI::DragItemBehavior(const std::string& _id, const NiUI_InputState& _inputState, NiUI_Transform2dEx& _transform, const NiVec2& _originLeftTop)
+std::string NiGui::DragItemBehavior(const std::string& _id, const NiUI_InputState& _inputState, NiUI_Transform2dEx& _transform, const NiVec2& _originLeftTop)
 {
     std::string preHoverId = state_.componentID.hover;
     std::string preTypeId = state_.componentID.typeHover;
@@ -99,7 +99,7 @@ std::string NiUI::DragItemBehavior(const std::string& _id, const NiUI_InputState
     return result;
 }
 
-std::string NiUI::DragItem(const std::string& _id, const std::string& _textureName, const NiVec4& _color, const NiVec2& _position, const NiVec2& _size, const NiUI_StandardPoint _anchor, const NiUI_StandardPoint _pivot)
+std::string NiGui::DragItem(const std::string& _id, const std::string& _textureName, const NiVec4& _color, const NiVec2& _position, const NiVec2& _size, const NiGui_StandardPoint _anchor, const NiGui_StandardPoint _pivot)
 {
     NiUI_Transform2dEx transformEx = {};
     transformEx.position = _position;
@@ -136,7 +136,7 @@ std::string NiUI::DragItem(const std::string& _id, const std::string& _textureNa
     return result;
 }
 
-void NiUI::DragItemAreaDataEnqueue()
+void NiGui::DragItemAreaDataEnqueue()
 {
     for (auto& dragItemAreaData : dragItemAreaData_)
     {
@@ -145,7 +145,7 @@ void NiUI::DragItemAreaDataEnqueue()
     }
 }
 
-void NiUI::DragItemDataEnqueue()
+void NiGui::DragItemDataEnqueue()
 {
     for (auto& dragItemData : dragItemData_)
     {

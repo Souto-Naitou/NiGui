@@ -10,7 +10,7 @@
 /// - - - - - -
 
 // アラインメント
-enum class NiUI_StandardPoint
+enum class NiGui_StandardPoint
 {
     LeftTop, // 左上
     CenterTop, // 上
@@ -24,14 +24,14 @@ enum class NiUI_StandardPoint
 };
 
 // フレックスコンテナの方向
-enum class NiUI_Flex_Direction
+enum class NiGui_Flex_Direction
 {
     Row, // 横
     Column, // 縦
 };
 
 // フレックスコンテナの配置
-enum class NiUI_Flex_JustifyContent
+enum class NiGui_Flex_JustifyContent
 {
     Start, // 開始
     End, // 終了
@@ -41,7 +41,7 @@ enum class NiUI_Flex_JustifyContent
 };
 
 // フレックスコンテナのアラインメント
-enum class NiUI_Flex_AlignItems
+enum class NiGui_Flex_AlignItems
 {
     Start, // 開始
     End, // 終了
@@ -49,7 +49,7 @@ enum class NiUI_Flex_AlignItems
 };
 
 // フレックスアイテムを複数行にしたとき
-enum class NiUI_Flex_AlignContent
+enum class NiGui_Flex_AlignContent
 {
     Start, // 開始
     End, // 終了
@@ -64,7 +64,7 @@ enum class NiUI_Flex_AlignContent
 /// - - - - - - - - - - -
 
 // ボタンの状態
-enum class NiUI_ButtonState
+enum class NiGui_ButtonState
 {
     None, // 何もない
     Hover, // ホバー

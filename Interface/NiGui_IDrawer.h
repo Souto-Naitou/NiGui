@@ -1,14 +1,14 @@
 #pragma once
 
-#include "../Type/NiUI_Type_Component.h"
+#include "../Type/NiGui_Type_Component.h"
 #include <vector>
 #include <string>
 
-class IDrawer
+class INiGuiDrawer
 {
 public:
-    IDrawer() = default;
-    virtual ~IDrawer() = default;
+    INiGuiDrawer() = default;
+    virtual ~INiGuiDrawer() = default;
 
     void EnqueueDrawInfo(BaseDrawData* _data) 
     { 

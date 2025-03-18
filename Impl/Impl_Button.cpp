@@ -1,13 +1,13 @@
-#include "../NiUI.h"
+#include "../NiGui.h"
 
-NiUI_ButtonState NiUI::Button(
+NiGui_ButtonState NiGui::Button(
     const std::string& _id,
     const std::string& _textureName,
     const NiVec4& _color,
     const NiVec2& _position,
     const NiVec2& _size,
-    NiUI_StandardPoint _anchor,
-    NiUI_StandardPoint _pivot)
+    NiGui_StandardPoint _anchor,
+    NiGui_StandardPoint _pivot)
 {
     auto& buttonImage = buttonImages_[_id];
     NiUI_InputState istate = {};
@@ -37,20 +37,20 @@ NiUI_ButtonState NiUI::Button(
     buttonImage.size = _size;
     buttonImage.zOrder = state_.buffer.currentZOrder++;
 
-    NiUI_ButtonState result = NiUI_ButtonState::None;
+    NiGui_ButtonState result = NiGui_ButtonState::None;
     if (onButton)
     {
-        result = NiUI_ButtonState::Confirm;
+        result = NiGui_ButtonState::Confirm;
     }
     else if (istate.isHover)
     {
-        result = NiUI_ButtonState::Hover;
+        result = NiGui_ButtonState::Hover;
     }
 
     return result;
 }
 
-bool NiUI::ButtonBehavior(const std::string& _id, const NiUI_InputState& _inputState, bool& _out_held)
+bool NiGui::ButtonBehavior(const std::string& _id, const NiUI_InputState& _inputState, bool& _out_held)
 {
     SetComponentId(_inputState, _id, "Button");
 
@@ -68,7 +68,7 @@ bool NiUI::ButtonBehavior(const std::string& _id, const NiUI_InputState& _inputS
     return false;
 }
 
-void NiUI::ButtonDataEnqueue()
+void NiGui::ButtonDataEnqueue()
 {
     for(auto& buttonImage : buttonImages_)
     {

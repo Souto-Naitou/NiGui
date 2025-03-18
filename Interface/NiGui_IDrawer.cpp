@@ -1,8 +1,8 @@
-#include "NiUI_IDrawer.h"
+#include "NiGui_IDrawer.h"
 #include <stdexcept>
-#include <NiUI.h>
+#include <NiGui.h>
 
-void IDrawer::DrawSetting()
+void INiGuiDrawer::DrawSetting()
 {
     if (drawData_.empty()) return;
 
@@ -22,20 +22,20 @@ void IDrawer::DrawSetting()
     ApplyButtonHoverAndClickEffects();
 }
 
-void IDrawer::PostDraw()
+void INiGuiDrawer::PostDraw()
 {
     /// 描画データのクリア
     drawDataZOrdered_.clear();
     drawData_.clear();
 }
 
-void IDrawer::ApplyButtonHoverAndClickEffects()
+void INiGuiDrawer::ApplyButtonHoverAndClickEffects()
 {
     /// UIクラスからデータを取得
-    auto hoveredComponentID = NiUI::GetHoverComponentID();
-    auto activeComponentID = NiUI::GetActiveComponentID();
-    auto hoverType = NiUI::GetHoverComponentType();
-    auto activeType = NiUI::GetActiveComponentType();
+    auto hoveredComponentID = NiGui::GetHoverComponentID();
+    auto activeComponentID = NiGui::GetActiveComponentID();
+    auto hoverType = NiGui::GetHoverComponentType();
+    auto activeType = NiGui::GetActiveComponentType();
 
     for (auto& data : drawDataZOrdered_)
     {

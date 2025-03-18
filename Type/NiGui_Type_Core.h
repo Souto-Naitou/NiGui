@@ -5,15 +5,15 @@
 
 #include "../Math/NiVec2.h" // NiVec2
 #include "../Math/NiVec4.h" // NiVec4
-#include "NiUI_Type_Component.h"
+#include "NiGui_Type_Component.h"
 
 using NiID = unsigned int;
 
 template <typename T>
 using StringMap = std::unordered_map<std::string, T>;
 
-// Included in NiUICoreState
-struct NiUIComponentID
+// Included in NiGuiCoreState
+struct NiGuiComponentID
 {
     std::string typeHover;
     std::string typeActive;
@@ -23,28 +23,28 @@ struct NiUIComponentID
     std::string preActive;
 };
 
-// Included in NiUICoreState
-struct NiUITime
+// Included in NiGuiCoreState
+struct NiGuiTime
 {
     uint32_t hover;
     uint32_t active;
 };
 
-// Included in NiUICoreState
-struct NiUIValidation
+// Included in NiGuiCoreState
+struct NiGuiValidation
 {
     bool isInitialized;
     bool isBeginFrame;
     uint32_t nestCount;
 };
 
-// Included in NiUICoreState
-struct NiUIFlags
+// Included in NiGuiCoreState
+struct NiGuiFlags
 {
     bool autoPosition;
 };
 
-struct NiUIBuffer
+struct NiGuiBuffer
 {
     BaseRegionData* currentRegion;
     uint32_t currentZOrder;
@@ -53,8 +53,8 @@ struct NiUIBuffer
     StringMap<std::string> areaToItem;
 };
 
-// Included in NiUIIO
-struct NiUIInputData
+// Included in NiGuiIO
+struct NiGuiInputData
 {
     NiVec2 cursorPos;
     NiVec2 triggeredPos;
@@ -67,29 +67,29 @@ struct NiUIInputData
     bool isMiddlePre;
 };
 
-// Included in NiUIIO
-struct NiUIAudioHandle
+// Included in NiGuiIO
+struct NiGuiAudioHandle
 {
     int32_t buttonHover = -1;
     int32_t buttonConfirm = -1;
 };
 
-// Included in NiUIIO
-struct NiUIAudioHandler
+// Included in NiGuiIO
+struct NiGuiAudioHandler
 {
     void* buttonHover;
     void* buttonConfirm;
 };
 
-// Included in NiUIStyle
-struct NiUIColor
+// Included in NiGuiStyle
+struct NiGuiColor
 {
     NiVec4 backGround;
 };
 
-struct NiUIStyle
+struct NiGuiStyle
 {
-    NiUIColor color;
+    NiGuiColor color;
 
     NiVec2 windowPadding;
     NiVec2 divPadding;
@@ -97,24 +97,24 @@ struct NiUIStyle
 };
 
 
-struct NiUIIO
+struct NiGuiIO
 {
-    NiUIInputData input;
-    NiUIAudioHandle audioHnd;
-    NiUIAudioHandler audioHandler;
+    NiGuiInputData input;
+    NiGuiAudioHandle audioHnd;
+    NiGuiAudioHandler audioHandler;
 };
 
 
-struct NiUICoreState
+struct NiGuiCoreState
 {
-    NiUIValidation valid;
-    NiUIComponentID componentID;
-    NiUIFlags flags;
-    NiUITime time;
-    NiUIBuffer buffer;
+    NiGuiValidation valid;
+    NiGuiComponentID componentID;
+    NiGuiFlags flags;
+    NiGuiTime time;
+    NiGuiBuffer buffer;
 };
 
-struct NiUISetting
+struct NiGuiSetting
 {
     int deleteElementThreshold;
 };

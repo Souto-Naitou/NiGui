@@ -1,39 +1,39 @@
-#include "NiUI.h"
+#include "NiGui.h"
 
 #include <stdexcept> // runtime_error
 #include <cassert>
 
-NiUI_Input          NiUI::input_        = NiUI_Input();
-NiVec2              NiUI::leftTop_      = { 0, 0 };
-NiVec2              NiUI::size_         = { 0, 0 };
-IDrawer*            NiUI::drawer_       = nullptr;
+NiGui_Input         NiGui::input_        = NiGui_Input();
+NiVec2              NiGui::leftTop_      = { 0, 0 };
+NiVec2              NiGui::size_         = { 0, 0 };
+INiGuiDrawer*       NiGui::drawer_       = nullptr;
 
-NiUIIO              NiUI::io_           = NiUIIO();
-NiUICoreState       NiUI::state_        = NiUICoreState();
-INiUIDebug*         NiUI::debug_        = nullptr;
-NiUISetting         NiUI::setting_      = NiUISetting();
-NiUIStyle           NiUI::style_        = NiUIStyle();
+NiGuiIO             NiGui::io_           = NiGuiIO();
+NiGuiCoreState      NiGui::state_        = NiGuiCoreState();
+INiGuiDebug*        NiGui::debug_        = nullptr;
+NiGuiSetting        NiGui::setting_      = NiGuiSetting();
+NiGuiStyle          NiGui::style_        = NiGuiStyle();
 
-const NiVec4        NiUI::WHITE         = { 1.0f, 1.0f, 1.0f, 1.0f };
-const NiVec4        NiUI::BLACK         = { 0.0f, 0.0f, 0.0f, 1.0f };
-const NiVec4        NiUI::RED           = { 1.0f, 0.0f, 0.0f, 1.0f };
-const NiVec4        NiUI::GREEN         = { 0.0f, 1.0f, 0.0f, 1.0f };
-const NiVec4        NiUI::BLUE          = { 0.0f, 0.0f, 1.0f, 1.0f };
-const NiVec4        NiUI::YELLOW        = { 1.0f, 1.0f, 0.0f, 1.0f };
-const NiVec4        NiUI::CIAN          = { 0.0f, 1.0f, 1.0f, 1.0f };
-const NiVec4        NiUI::MAGENTA       = { 1.0f, 0.0f, 1.0f, 1.0f };
+const NiVec4        NiGui::WHITE         = { 1.0f, 1.0f, 1.0f, 1.0f };
+const NiVec4        NiGui::BLACK         = { 0.0f, 0.0f, 0.0f, 1.0f };
+const NiVec4        NiGui::RED           = { 1.0f, 0.0f, 0.0f, 1.0f };
+const NiVec4        NiGui::GREEN         = { 0.0f, 1.0f, 0.0f, 1.0f };
+const NiVec4        NiGui::BLUE          = { 0.0f, 0.0f, 1.0f, 1.0f };
+const NiVec4        NiGui::YELLOW        = { 1.0f, 1.0f, 0.0f, 1.0f };
+const NiVec4        NiGui::CIAN          = { 0.0f, 1.0f, 1.0f, 1.0f };
+const NiVec4        NiGui::MAGENTA       = { 1.0f, 0.0f, 1.0f, 1.0f };
 
-std::unordered_map<std::string, ButtonData> NiUI::buttonImages_ = std::unordered_map<std::string, ButtonData>();
-std::unordered_map<std::string, DivData> NiUI::divData_ = std::unordered_map<std::string, DivData>();
-std::unordered_map<std::string, DragItemAreaData> NiUI::dragItemAreaData_ = std::unordered_map<std::string, DragItemAreaData>();
-std::unordered_map<std::string, DragItemData> NiUI::dragItemData_ = std::unordered_map<std::string, DragItemData>();
+std::unordered_map<std::string, ButtonData> NiGui::buttonImages_ = std::unordered_map<std::string, ButtonData>();
+std::unordered_map<std::string, DivData> NiGui::divData_ = std::unordered_map<std::string, DivData>();
+std::unordered_map<std::string, DragItemAreaData> NiGui::dragItemAreaData_ = std::unordered_map<std::string, DragItemAreaData>();
+std::unordered_map<std::string, DragItemData> NiGui::dragItemData_ = std::unordered_map<std::string, DragItemData>();
 
-std::unordered_map<std::string, NiVec2> NiUI::divOffset_ = std::unordered_map<std::string, NiVec2>();
-std::unordered_map<std::string, NiVec2> NiUI::dragItemOffset_ = std::unordered_map<std::string, NiVec2>();
+std::unordered_map<std::string, NiVec2> NiGui::divOffset_ = std::unordered_map<std::string, NiVec2>();
+std::unordered_map<std::string, NiVec2> NiGui::dragItemOffset_ = std::unordered_map<std::string, NiVec2>();
 
 
 
-void NiUI::Initialize(const NiVec2& _size, const NiVec2& _leftTop)
+void NiGui::Initialize(const NiVec2& _size, const NiVec2& _leftTop)
 {
     state_.valid.isInitialized = true;
     leftTop_ = _leftTop;
@@ -52,7 +52,7 @@ void NiUI::Initialize(const NiVec2& _size, const NiVec2& _leftTop)
     return;
 }
 
-void NiUI::BeginFrame()
+void NiGui::BeginFrame()
 {
     CheckValid_BeginFrame();
 
@@ -68,7 +68,7 @@ void NiUI::BeginFrame()
     return;
 }
 
-void NiUI::DrawUI()
+void NiGui::DrawUI()
 {
     // 描画処理に必要なデータの確認
     CheckValid_DrawUI();
@@ -98,13 +98,13 @@ void NiUI::DrawUI()
     state_.valid.isBeginFrame = false;
 }
 
-void NiUI::NiUI_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+void NiGui::NiUI_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     input_.WndProcHandler(hWnd, msg, wParam, lParam);
     return;
 }
 
-void NiUI::CheckValid_BeginFrame()
+void NiGui::CheckValid_BeginFrame()
 {
     if(!state_.valid.isInitialized)
     {
@@ -117,7 +117,7 @@ void NiUI::CheckValid_BeginFrame()
     }
 }
 
-void NiUI::CheckValid_DrawUI()
+void NiGui::CheckValid_DrawUI()
 {
     if(!state_.valid.isInitialized)
     {
@@ -140,7 +140,7 @@ void NiUI::CheckValid_DrawUI()
     }
 }
 
-void NiUI::JudgeClickRect(const NiVec2& _leftTop, const NiVec2& _size, NiUI_InputState& _input)
+void NiGui::JudgeClickRect(const NiVec2& _leftTop, const NiVec2& _size, NiUI_InputState& _input)
 {
     NiVec2 leftTop = _leftTop + leftTop_;
 
@@ -177,53 +177,53 @@ void NiUI::JudgeClickRect(const NiVec2& _leftTop, const NiVec2& _size, NiUI_Inpu
     }
 }
 
-NiVec2 NiUI::ComputeStandardPoint(NiUI_StandardPoint _stdpoint)
+NiVec2 NiGui::ComputeStandardPoint(NiGui_StandardPoint _stdpoint)
 {
     NiVec2 result = {};
 
     switch (_stdpoint)
     {
-    case NiUI_StandardPoint::LeftTop:
+    case NiGui_StandardPoint::LeftTop:
         result.x = 0.0f;
         result.y = 0.0f;
         break;
 
-    case NiUI_StandardPoint::CenterTop:
+    case NiGui_StandardPoint::CenterTop:
         result.x = 0.5f;
         result.y = 0.0f;
         break;
 
-    case NiUI_StandardPoint::RightTop:
+    case NiGui_StandardPoint::RightTop:
         result.x = 1.0f;
         result.y = 0.0f;
         break;
 
-    case NiUI_StandardPoint::LeftCenter:
+    case NiGui_StandardPoint::LeftCenter:
         result.x = 0.0f;
         result.y = 0.5f;
         break;
 
-    case NiUI_StandardPoint::Center:
+    case NiGui_StandardPoint::Center:
         result.x = 0.5f;
         result.y = 0.5f;
         break;
 
-    case NiUI_StandardPoint::RightCenter:
+    case NiGui_StandardPoint::RightCenter:
         result.x = 1.0f;
         result.y = 0.5f;
         break;
 
-    case NiUI_StandardPoint::LeftBottom:
+    case NiGui_StandardPoint::LeftBottom:
         result.x = 0.0f;
         result.y = 1.0f;
         break;
 
-    case NiUI_StandardPoint::CenterBottom:
+    case NiGui_StandardPoint::CenterBottom:
         result.x = 0.5f;
         result.y = 1.0f;
         break;
 
-    case NiUI_StandardPoint::RightBottom:
+    case NiGui_StandardPoint::RightBottom:
         result.x = 1.0f;
         result.y = 1.0f;
         break;
@@ -235,7 +235,7 @@ NiVec2 NiUI::ComputeStandardPoint(NiUI_StandardPoint _stdpoint)
     return result;
 }
 
-NiVec2 NiUI::ComputeLeftTop(const NiVec2& _position, const NiVec2& _size, const NiVec2& _parentSize, NiUI_StandardPoint _anchor, NiUI_StandardPoint _pivot)
+NiVec2 NiGui::ComputeLeftTop(const NiVec2& _position, const NiVec2& _size, const NiVec2& _parentSize, NiGui_StandardPoint _anchor, NiGui_StandardPoint _pivot)
 {
     NiVec2 result = {};
 
@@ -247,7 +247,7 @@ NiVec2 NiUI::ComputeLeftTop(const NiVec2& _position, const NiVec2& _size, const 
     return result;
 }
 
-void NiUI::ClearData()
+void NiGui::ClearData()
 {
     buttonImages_.clear();
     divData_.clear();
@@ -283,14 +283,14 @@ void NiUI::ClearData()
     return;
 }
 
-void NiUI::SavePreData()
+void NiGui::SavePreData()
 {
     // 前フレームのホバー中のコンポーネントIDを保存
     state_.componentID.preHover = state_.componentID.hover;
     state_.componentID.preActive = state_.componentID.active;
 }
 
-void NiUI::CopyInputData()
+void NiGui::CopyInputData()
 {
     io_.input.isLeftPre = io_.input.isLeft;
     io_.input.isRightPre = io_.input.isRight;
@@ -305,7 +305,7 @@ void NiUI::CopyInputData()
     io_.input.differencePos = input_.GetDifferencePos();
 }
 
-void NiUI::ClampRect(NiVec2& _leftTop, const NiVec2& _size, const NiVec2& _parentPos, const NiVec2& _parentSize)
+void NiGui::ClampRect(NiVec2& _leftTop, const NiVec2& _size, const NiVec2& _parentPos, const NiVec2& _parentSize)
 {
     if (_leftTop.x < _parentPos.x) _leftTop.x = _parentPos.x;
     if (_leftTop.y < _parentPos.y) _leftTop.y = _parentPos.y;
@@ -313,7 +313,7 @@ void NiUI::ClampRect(NiVec2& _leftTop, const NiVec2& _size, const NiVec2& _paren
     if (_leftTop.y + _size.y > _parentPos.y + _parentSize.y) _leftTop.y = _parentPos.y + _parentSize.y - _size.y;
 }
 
-void NiUI::OffsetUpdate(
+void NiGui::OffsetUpdate(
     const std::string& _id, 
     const NiVec2& _originLeftTop,
     const NiUI_Transform2dEx& _transform,
@@ -333,7 +333,7 @@ void NiUI::OffsetUpdate(
     }
 }
 
-void NiUI::SetComponentId(const NiUI_InputState& _inputState, const std::string& _id, const std::string& _type)
+void NiGui::SetComponentId(const NiUI_InputState& _inputState, const std::string& _id, const std::string& _type)
 {
     if (_id.empty()) assert(false && "unexpected");
 
@@ -349,7 +349,7 @@ void NiUI::SetComponentId(const NiUI_InputState& _inputState, const std::string&
     }
 }
 
-void NiUI::PostProcessComponents()
+void NiGui::PostProcessComponents()
 {
     auto& componentID = state_.componentID;
     auto& componentTime = state_.time;
@@ -440,7 +440,7 @@ void NiUI::PostProcessComponents()
     PlaySE("Button", io_.audioHnd.buttonHover, io_.audioHnd.buttonConfirm, io_.audioHandler.buttonHover, io_.audioHandler.buttonConfirm);
 }
 
-void NiUI::PlaySE(const std::string& _type, uint32_t _hoverSE, uint32_t _confirmSE, void* _hoverHandler, void* _confirmHandler)
+void NiGui::PlaySE(const std::string& _type, uint32_t _hoverSE, uint32_t _confirmSE, void* _hoverHandler, void* _confirmHandler)
 {
     auto& componentID = state_.componentID;
     auto& componentTime = state_.time;

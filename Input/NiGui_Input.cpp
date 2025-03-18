@@ -1,13 +1,13 @@
-#include "NiUI_Input.h"
+#include "NiGui_Input.h"
 
 #include <WinUser.h> // WM_LBUTTONDOWN, WM_LBUTTONUP, WM_RBUTTONDOWN, WM_RBUTTONUP, WM_MBUTTONDOWN, WM_MBUTTONUP
 
-void NiUI_Input::Initialize()
+void NiGui_Input::Initialize()
 {
     mouseData_ = {};
 }
 
-void NiUI_Input::Update()
+void NiGui_Input::Update()
 {
     /// 前フレームの状態を保存
     mouseData_.isLeftPre = mouseData_.isLeft;
@@ -42,7 +42,7 @@ void NiUI_Input::Update()
     }
 }
 
-void NiUI_Input::WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+void NiGui_Input::WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     hWnd_ = hWnd;
 

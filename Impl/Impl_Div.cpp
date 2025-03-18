@@ -1,9 +1,9 @@
-#include "../NiUI.h"
+#include "../NiGui.h"
 
 #include <stdexcept> // runtime_error
 
 
-bool NiUI::BeginDiv(const std::string& _id, const std::string& _textureName, const NiVec4& _color, const NiVec2& _position, const NiVec2& _size, const NiUI_StandardPoint _anchor, const NiUI_StandardPoint _pivot)
+bool NiGui::BeginDiv(const std::string& _id, const std::string& _textureName, const NiVec4& _color, const NiVec2& _position, const NiVec2& _size, const NiGui_StandardPoint _anchor, const NiGui_StandardPoint _pivot)
 {
     NiUI_Transform2dEx transformEx = {};
     transformEx.position = _position;
@@ -39,7 +39,7 @@ bool NiUI::BeginDiv(const std::string& _id, const std::string& _textureName, con
     return true;
 }
 
-bool NiUI::BeginDivMovable(const std::string& _id, const std::string& _textureName, const NiVec4& _color, const NiVec2& _position, const NiVec2& _size, const NiUI_StandardPoint _anchor, const NiUI_StandardPoint _pivot)
+bool NiGui::BeginDivMovable(const std::string& _id, const std::string& _textureName, const NiVec4& _color, const NiVec2& _position, const NiVec2& _size, const NiGui_StandardPoint _anchor, const NiGui_StandardPoint _pivot)
 {
     NiUI_Transform2dEx transformEx = {};
     transformEx.position = _position;
@@ -83,7 +83,7 @@ bool NiUI::BeginDivMovable(const std::string& _id, const std::string& _textureNa
     return true;
 }
 
-void NiUI::EndDiv()
+void NiGui::EndDiv()
 {
     if (state_.valid.nestCount == 0)
     {
@@ -95,7 +95,7 @@ void NiUI::EndDiv()
     state_.buffer.currentRegion = state_.buffer.currentRegion->parent;
 }
 
-void NiUI::DivBehavior(const std::string& _id, bool _isHover, bool _isTrigger)
+void NiGui::DivBehavior(const std::string& _id, bool _isHover, bool _isTrigger)
 {
     // ネストカウントを増やす
     state_.valid.nestCount++;
@@ -103,7 +103,7 @@ void NiUI::DivBehavior(const std::string& _id, bool _isHover, bool _isTrigger)
     SetComponentId({ .isHover = _isHover, .isTrigger = _isTrigger }, _id, "Div");
 }
 
-void NiUI::DivDataEnqueue()
+void NiGui::DivDataEnqueue()
 {
     for (auto& divData : divData_)
     {
@@ -112,7 +112,7 @@ void NiUI::DivDataEnqueue()
     }
 }
 
-void NiUI::ComputeRect(NiUI_Transform2dEx& _transform, const NiUI_StandardPoint _anchor, const NiUI_StandardPoint _pivot)
+void NiGui::ComputeRect(NiUI_Transform2dEx& _transform, const NiGui_StandardPoint _anchor, const NiGui_StandardPoint _pivot)
 {
     /// 親の座標とサイズを取得
     if (state_.buffer.currentRegion == nullptr)
