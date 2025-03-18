@@ -2,7 +2,7 @@
 
 std::string NiGui::DragItemArea(const std::string & _id, const std::string & _textureName, const NiVec4 & _color, const NiVec2 & _position, const NiVec2 & _size, const NiGui_StandardPoint _anchor, const NiGui_StandardPoint _pivot)
 {
-    NiUI_Transform2dEx transformEx = {};
+    NiGui_Transform2dEx transformEx = {};
     transformEx.position = _position;
     transformEx.size = _size;
 
@@ -11,7 +11,7 @@ std::string NiGui::DragItemArea(const std::string & _id, const std::string & _te
     /// =============
     /// 当たり判定と挙動
     
-    NiUI_InputState istate = {};
+    NiGui_InputState istate = {};
 
     /// 当たり判定
     JudgeClickRect(transformEx.position, transformEx.size, istate);
@@ -30,7 +30,7 @@ std::string NiGui::DragItemArea(const std::string & _id, const std::string & _te
     return result;
 }
 
-std::string NiGui::DragItemAreaBehavior(const std::string& _id, bool _isHover, bool _isTrigger, NiUI_Transform2dEx& _transform, const NiVec2& _leftTop)
+std::string NiGui::DragItemAreaBehavior(const std::string& _id, bool _isHover, bool _isTrigger, NiGui_Transform2dEx& _transform, const NiVec2& _leftTop)
 {
     SetComponentId({ .isHover = _isHover, .isTrigger = _isTrigger }, _id, "DragItemArea");
 
@@ -46,7 +46,7 @@ std::string NiGui::DragItemAreaBehavior(const std::string& _id, bool _isHover, b
     
 }
 
-std::string NiGui::DragItemBehavior(const std::string& _id, const NiUI_InputState& _inputState, NiUI_Transform2dEx& _transform, const NiVec2& _originLeftTop)
+std::string NiGui::DragItemBehavior(const std::string& _id, const NiGui_InputState& _inputState, NiGui_Transform2dEx& _transform, const NiVec2& _originLeftTop)
 {
     std::string preHoverId = state_.componentID.hover;
     std::string preTypeId = state_.componentID.typeHover;
@@ -101,7 +101,7 @@ std::string NiGui::DragItemBehavior(const std::string& _id, const NiUI_InputStat
 
 std::string NiGui::DragItem(const std::string& _id, const std::string& _textureName, const NiVec4& _color, const NiVec2& _position, const NiVec2& _size, const NiGui_StandardPoint _anchor, const NiGui_StandardPoint _pivot)
 {
-    NiUI_Transform2dEx transformEx = {};
+    NiGui_Transform2dEx transformEx = {};
     transformEx.position = _position;
     transformEx.size = _size;
 
@@ -116,7 +116,7 @@ std::string NiGui::DragItem(const std::string& _id, const std::string& _textureN
     /// =============
     /// 当たり判定と挙動
 
-    NiUI_InputState istate = {};
+    NiGui_InputState istate = {};
 
     /// 当たり判定
     JudgeClickRect(transformEx.position, transformEx.size, istate);

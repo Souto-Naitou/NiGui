@@ -5,7 +5,7 @@
 
 bool NiGui::BeginDiv(const std::string& _id, const std::string& _textureName, const NiVec4& _color, const NiVec2& _position, const NiVec2& _size, const NiGui_StandardPoint _anchor, const NiGui_StandardPoint _pivot)
 {
-    NiUI_Transform2dEx transformEx = {};
+    NiGui_Transform2dEx transformEx = {};
     transformEx.position = _position;
     transformEx.size = _size;
 
@@ -14,7 +14,7 @@ bool NiGui::BeginDiv(const std::string& _id, const std::string& _textureName, co
     /// =============
     /// 当たり判定と挙動
 
-    NiUI_InputState input = {};
+    NiGui_InputState input = {};
 
     /// 当たり判定
     JudgeClickRect(transformEx.position, transformEx.size, input);
@@ -41,7 +41,7 @@ bool NiGui::BeginDiv(const std::string& _id, const std::string& _textureName, co
 
 bool NiGui::BeginDivMovable(const std::string& _id, const std::string& _textureName, const NiVec4& _color, const NiVec2& _position, const NiVec2& _size, const NiGui_StandardPoint _anchor, const NiGui_StandardPoint _pivot)
 {
-    NiUI_Transform2dEx transformEx = {};
+    NiGui_Transform2dEx transformEx = {};
     transformEx.position = _position;
     transformEx.size = _size;
 
@@ -52,7 +52,7 @@ bool NiGui::BeginDivMovable(const std::string& _id, const std::string& _textureN
     /// =============
     /// 当たり判定と挙動
     
-    NiUI_InputState istate = {};
+    NiGui_InputState istate = {};
 
     transformEx.position += divOffset_[_id];
     ClampRect(transformEx.position, _size, transformEx.parentPos, transformEx.parentSize);
@@ -112,7 +112,7 @@ void NiGui::DivDataEnqueue()
     }
 }
 
-void NiGui::ComputeRect(NiUI_Transform2dEx& _transform, const NiGui_StandardPoint _anchor, const NiGui_StandardPoint _pivot)
+void NiGui::ComputeRect(NiGui_Transform2dEx& _transform, const NiGui_StandardPoint _anchor, const NiGui_StandardPoint _pivot)
 {
     /// 親の座標とサイズを取得
     if (state_.buffer.currentRegion == nullptr)

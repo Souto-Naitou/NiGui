@@ -98,7 +98,7 @@ void NiGui::DrawUI()
     state_.valid.isBeginFrame = false;
 }
 
-void NiGui::NiUI_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+void NiGui::NiGui_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     input_.WndProcHandler(hWnd, msg, wParam, lParam);
     return;
@@ -140,7 +140,7 @@ void NiGui::CheckValid_DrawUI()
     }
 }
 
-void NiGui::JudgeClickRect(const NiVec2& _leftTop, const NiVec2& _size, NiUI_InputState& _input)
+void NiGui::JudgeClickRect(const NiVec2& _leftTop, const NiVec2& _size, NiGui_InputState& _input)
 {
     NiVec2 leftTop = _leftTop + leftTop_;
 
@@ -316,7 +316,7 @@ void NiGui::ClampRect(NiVec2& _leftTop, const NiVec2& _size, const NiVec2& _pare
 void NiGui::OffsetUpdate(
     const std::string& _id, 
     const NiVec2& _originLeftTop,
-    const NiUI_Transform2dEx& _transform,
+    const NiGui_Transform2dEx& _transform,
     NiVec2& _offset)
 {
     if (state_.componentID.active == _id)
@@ -333,7 +333,7 @@ void NiGui::OffsetUpdate(
     }
 }
 
-void NiGui::SetComponentId(const NiUI_InputState& _inputState, const std::string& _id, const std::string& _type)
+void NiGui::SetComponentId(const NiGui_InputState& _inputState, const std::string& _id, const std::string& _type)
 {
     if (_id.empty()) assert(false && "unexpected");
 

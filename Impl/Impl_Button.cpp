@@ -10,7 +10,7 @@ NiGui_ButtonState NiGui::Button(
     NiGui_StandardPoint _pivot)
 {
     auto& buttonImage = buttonImages_[_id];
-    NiUI_InputState istate = {};
+    NiGui_InputState istate = {};
     bool isHeld = false;
 
     NiVec2 posInRegion = _position;
@@ -50,7 +50,7 @@ NiGui_ButtonState NiGui::Button(
     return result;
 }
 
-bool NiGui::ButtonBehavior(const std::string& _id, const NiUI_InputState& _inputState, bool& _out_held)
+bool NiGui::ButtonBehavior(const std::string& _id, const NiGui_InputState& _inputState, bool& _out_held)
 {
     SetComponentId(_inputState, _id, "Button");
 

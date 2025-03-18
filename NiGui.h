@@ -43,7 +43,7 @@ public: /// 一般
 
     // ウィンドウプロシージャハンドラ
     // 注意：ImGuiのハンドラより先に呼び出してください。
-    static void NiUI_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+    static void NiGui_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 
     static void DrawDebug() { debug_->DrawDebugUI(); };
@@ -172,10 +172,10 @@ private: /// メンバ変数
 
 
 private: /// 挙動
-    static bool ButtonBehavior(const std::string& _id, const NiUI_InputState& _inputState, bool& _out_held);
+    static bool ButtonBehavior(const std::string& _id, const NiGui_InputState& _inputState, bool& _out_held);
     static void DivBehavior(const std::string& _id, bool _isHover, bool _isTrigger);
-    static std::string DragItemAreaBehavior(const std::string& _id, bool _isHover, bool _isTrigger, NiUI_Transform2dEx& _transform, const NiVec2& _leftTop);
-    static std::string DragItemBehavior(const std::string& _id, const NiUI_InputState& _inputState, NiUI_Transform2dEx& _transform, const NiVec2& originLeftTop);
+    static std::string DragItemAreaBehavior(const std::string& _id, bool _isHover, bool _isTrigger, NiGui_Transform2dEx& _transform, const NiVec2& _leftTop);
+    static std::string DragItemBehavior(const std::string& _id, const NiGui_InputState& _inputState, NiGui_Transform2dEx& _transform, const NiVec2& originLeftTop);
 
 
 private: /// 描画クラスにデータを送る関数
@@ -193,17 +193,17 @@ private: /// ボタンの処理
 private: /// その他
     static void CheckValid_BeginFrame();
     static void CheckValid_DrawUI();
-    static void JudgeClickRect(const NiVec2& _leftTop, const NiVec2& _size, NiUI_InputState& _istate);
+    static void JudgeClickRect(const NiVec2& _leftTop, const NiVec2& _size, NiGui_InputState& _istate);
     static NiVec2 ComputeStandardPoint(NiGui_StandardPoint _stdpoint);
     static NiVec2 ComputeLeftTop(const NiVec2& _position, const NiVec2& _size, const NiVec2& _parentSize, NiGui_StandardPoint _anchor, NiGui_StandardPoint _pivot);
     // 各種座標を取得
-    static void ComputeRect(NiUI_Transform2dEx& _transform, const NiGui_StandardPoint _anchor, const NiGui_StandardPoint _pivot);
+    static void ComputeRect(NiGui_Transform2dEx& _transform, const NiGui_StandardPoint _anchor, const NiGui_StandardPoint _pivot);
     static void ClearData();
     static void SavePreData();
     static void CopyInputData();
     static void ClampRect(NiVec2& _leftTop, const NiVec2& _size, const NiVec2& _parentPos, const NiVec2& _parentSize);
-    static void OffsetUpdate(const std::string& _id, const NiVec2& _originLeftTop, const NiUI_Transform2dEx& _transform, NiVec2& _offset);
-    static void SetComponentId(const NiUI_InputState& _inputState, const std::string& _id, const std::string& _type);
+    static void OffsetUpdate(const std::string& _id, const NiVec2& _originLeftTop, const NiGui_Transform2dEx& _transform, NiVec2& _offset);
+    static void SetComponentId(const NiGui_InputState& _inputState, const std::string& _id, const std::string& _type);
 
 
 public:
