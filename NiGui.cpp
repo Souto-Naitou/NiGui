@@ -88,6 +88,9 @@ void NiGui::DrawUI()
     // 描画
     drawer_->Draw();
 
+    // 描画後処理
+    drawer_->PostDraw();
+
     // 前フレームのデータとして保存
     SavePreData();
 
