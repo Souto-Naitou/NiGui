@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Implement">
+      <UniqueIdentifier>{3f0470a6-00a2-484c-9e20-ff2f268ae8cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{a924ab8e-d472-47de-831b-f637cc1e00f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interface">
+      <UniqueIdentifier>{ca8e38e2-fbd1-481d-90c6-c77f8b5ba8db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Type">
+      <UniqueIdentifier>{0c079ef6-45a8-4901-aa2f-89607ef1571e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{d67e177a-ba4f-4fe5-923b-8e3f3c480f35}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Impl\Impl_Button.cpp">
+      <Filter>Implement</Filter>
+    </ClCompile>
+    <ClCompile Include="Impl\Impl_Div.cpp">
+      <Filter>Implement</Filter>
+    </ClCompile>
+    <ClCompile Include="Impl\Impl_DragItem.cpp">
+      <Filter>Implement</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface\NiUI_IDrawer.cpp">
+      <Filter>Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\NiVec2.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\NiVec3.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\NiVec4.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="NiUI.cpp" />
+    <ClCompile Include="Input\NiUI_Input.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Interface\NiUI_IDebug.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface\NiUI_IDrawer.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\NiVec2.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\NiVec3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\NiVec4.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Type\NiUI_Enum.h">
+      <Filter>Type</Filter>
+    </ClInclude>
+    <ClInclude Include="Type\NiUI_Type_Component.h">
+      <Filter>Type</Filter>
+    </ClInclude>
+    <ClInclude Include="Type\NiUI_Type_Core.h">
+      <Filter>Type</Filter>
+    </ClInclude>
+    <ClInclude Include="Type\NiUI_Type_Various.h">
+      <Filter>Type</Filter>
+    </ClInclude>
+    <ClInclude Include="NiUI.h" />
+    <ClInclude Include="Input\NiUI_Input.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
