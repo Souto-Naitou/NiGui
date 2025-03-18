@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <PublicIncludeDirectories>$(ProjectDir);$(PublicIncludeDirectories)</PublicIncludeDirectories>
+    <PublicIncludeDirectories>$(MSBuildProjectDirectory);$(PublicIncludeDirectories)</PublicIncludeDirectories>
     <OutDir>$(MSBuildProjectDirectory)\Bin\$(Configuration)\</OutDir>
     <IntDir>$(MSBuildProjectDirectory)\Bin\$(Configuration)\Intermediate\</IntDir>
     <TargetName>$(ProjectName)</TargetName>
@@ -22,7 +22,7 @@
     <UseStructuredOutput>true</UseStructuredOutput>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <PublicIncludeDirectories>$(ProjectDir);$(PublicIncludeDirectories)</PublicIncludeDirectories>
+    <PublicIncludeDirectories>$(MSBuildProjectDirectory);$(PublicIncludeDirectories)</PublicIncludeDirectories>
     <OutDir>$(MSBuildProjectDirectory)\Bin\$(Configuration)\</OutDir>
     <IntDir>$(MSBuildProjectDirectory)\Bin\$(Configuration)\Intermediate\</IntDir>
     <TargetName>$(ProjectName)</TargetName>

@@ -27,9 +27,6 @@
     <ClCompile Include="Impl\Impl_DragItem.cpp">
       <Filter>Implement</Filter>
     </ClCompile>
-    <ClCompile Include="Interface\NiUI_IDrawer.cpp">
-      <Filter>Interface</Filter>
-    </ClCompile>
     <ClCompile Include="Math\NiVec2.cpp">
       <Filter>Math</Filter>
     </ClCompile>
@@ -39,18 +36,11 @@
     <ClCompile Include="Math\NiVec4.cpp">
       <Filter>Math</Filter>
     </ClCompile>
-    <ClCompile Include="NiUI.cpp" />
-    <ClCompile Include="Input\NiUI_Input.cpp">
-      <Filter>Input</Filter>
-    </ClCompile>
+    <ClCompile Include="Input\NiGui_Input.cpp" />
+    <ClCompile Include="Interface\NiGui_IDrawer.cpp" />
+    <ClCompile Include="NiGui.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Interface\NiUI_IDebug.h">
-      <Filter>Interface</Filter>
-    </ClInclude>
-    <ClInclude Include="Interface\NiUI_IDrawer.h">
-      <Filter>Interface</Filter>
-    </ClInclude>
     <ClInclude Include="Math\NiVec2.h">
       <Filter>Math</Filter>
     </ClInclude>
@@ -60,21 +50,13 @@
     <ClInclude Include="Math\NiVec4.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="Type\NiUI_Enum.h">
-      <Filter>Type</Filter>
-    </ClInclude>
-    <ClInclude Include="Type\NiUI_Type_Component.h">
-      <Filter>Type</Filter>
-    </ClInclude>
-    <ClInclude Include="Type\NiUI_Type_Core.h">
-      <Filter>Type</Filter>
-    </ClInclude>
-    <ClInclude Include="Type\NiUI_Type_Various.h">
-      <Filter>Type</Filter>
-    </ClInclude>
-    <ClInclude Include="NiUI.h" />
-    <ClInclude Include="Input\NiUI_Input.h">
-      <Filter>Input</Filter>
-    </ClInclude>
+    <ClInclude Include="Input\NiGui_Input.h" />
+    <ClInclude Include="Interface\NiGui_IDebug.h" />
+    <ClInclude Include="Interface\NiGui_IDrawer.h" />
+    <ClInclude Include="NiGui.h" />
+    <ClInclude Include="Type\NiGui_Enum.h" />
+    <ClInclude Include="Type\NiGui_Type_Component.h" />
+    <ClInclude Include="Type\NiGui_Type_Core.h" />
+    <ClInclude Include="Type\NiGui_Type_Various.h" />
   </ItemGroup>
 </Project>
