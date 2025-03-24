@@ -382,7 +382,14 @@ void NiGui::PostProcessComponents()
 
     if (componentID.typeActive == "DragItem" && !componentID.active.empty())
     {
-        int max = state_.buffer.currentZOrder - 1;
+        int max = 0;
+        for (auto& itr : dragItemData_)
+        {
+            if (itr.second.zOrder > max)
+            {
+                max = itr.second.zOrder;
+            }
+        }
         int missingIndex = 0;
         int currentIndex = 0;
         StringMap<int> newZMap;
