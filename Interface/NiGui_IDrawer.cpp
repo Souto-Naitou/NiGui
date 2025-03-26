@@ -41,7 +41,7 @@ void INiGuiDrawer::ApplyButtonHoverAndClickEffects()
     {
         if (data->id == hoveredComponentID && hoverType == "Button")
         {
-            data->color.Lerp(data->color, { 0.0f, 0.0f, 0.0f, 1.0f }, 0.2f);
+            data->color.Lerp(data->color, { 0.0f, 0.0f, 0.0f, 1.0f }, 0.5f);
         }
 
         if (data->id == activeComponentID && activeType == "Button")
