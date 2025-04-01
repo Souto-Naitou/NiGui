@@ -3,25 +3,25 @@
 #include <stdexcept> // runtime_error
 #include <cassert>
 
-NiGui_Input         NiGui::input_        = NiGui_Input();
-NiVec2              NiGui::leftTop_      = { 0, 0 };
-NiVec2              NiGui::size_         = { 0, 0 };
-INiGuiDrawer*       NiGui::drawer_       = nullptr;
+NiGui_Input         NiGui::input_ = NiGui_Input();
+NiVec2              NiGui::leftTop_ = { 0, 0 };
+NiVec2              NiGui::size_ = { 0, 0 };
+INiGuiDrawer* NiGui::drawer_ = nullptr;
 
-NiGuiIO             NiGui::io_           = NiGuiIO();
-NiGuiCoreState      NiGui::state_        = NiGuiCoreState();
-INiGuiDebug*        NiGui::debug_        = nullptr;
-NiGuiSetting        NiGui::setting_      = NiGuiSetting();
-NiGuiStyle          NiGui::style_        = NiGuiStyle();
+NiGuiIO             NiGui::io_ = NiGuiIO();
+NiGuiCoreState      NiGui::state_ = NiGuiCoreState();
+INiGuiDebug* NiGui::debug_ = nullptr;
+NiGuiSetting        NiGui::setting_ = NiGuiSetting();
+NiGuiStyle          NiGui::style_ = NiGuiStyle();
 
-const NiVec4        NiGui::WHITE         = { 1.0f, 1.0f, 1.0f, 1.0f };
-const NiVec4        NiGui::BLACK         = { 0.0f, 0.0f, 0.0f, 1.0f };
-const NiVec4        NiGui::RED           = { 1.0f, 0.0f, 0.0f, 1.0f };
-const NiVec4        NiGui::GREEN         = { 0.0f, 1.0f, 0.0f, 1.0f };
-const NiVec4        NiGui::BLUE          = { 0.0f, 0.0f, 1.0f, 1.0f };
-const NiVec4        NiGui::YELLOW        = { 1.0f, 1.0f, 0.0f, 1.0f };
-const NiVec4        NiGui::CIAN          = { 0.0f, 1.0f, 1.0f, 1.0f };
-const NiVec4        NiGui::MAGENTA       = { 1.0f, 0.0f, 1.0f, 1.0f };
+const NiVec4        NiGui::WHITE = { 1.0f, 1.0f, 1.0f, 1.0f };
+const NiVec4        NiGui::BLACK = { 0.0f, 0.0f, 0.0f, 1.0f };
+const NiVec4        NiGui::RED = { 1.0f, 0.0f, 0.0f, 1.0f };
+const NiVec4        NiGui::GREEN = { 0.0f, 1.0f, 0.0f, 1.0f };
+const NiVec4        NiGui::BLUE = { 0.0f, 0.0f, 1.0f, 1.0f };
+const NiVec4        NiGui::YELLOW = { 1.0f, 1.0f, 0.0f, 1.0f };
+const NiVec4        NiGui::CIAN = { 0.0f, 1.0f, 1.0f, 1.0f };
+const NiVec4        NiGui::MAGENTA = { 1.0f, 0.0f, 1.0f, 1.0f };
 
 std::unordered_map<std::string, ButtonData> NiGui::buttonImages_ = std::unordered_map<std::string, ButtonData>();
 std::unordered_map<std::string, DivData> NiGui::divData_ = std::unordered_map<std::string, DivData>();
@@ -109,12 +109,12 @@ void NiGui::NiGui_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPar
 
 void NiGui::CheckValid_BeginFrame()
 {
-    if(!state_.valid.isInitialized)
+    if (!state_.valid.isInitialized)
     {
         throw std::runtime_error("UIクラスが初期化されていません。");
     }
 
-    if(state_.valid.isBeginFrame)
+    if (state_.valid.isBeginFrame)
     {
         throw std::runtime_error("BeginFrameが連続で呼び出されています。");
     }
@@ -122,17 +122,17 @@ void NiGui::CheckValid_BeginFrame()
 
 void NiGui::CheckValid_DrawUI()
 {
-    if(!state_.valid.isInitialized)
+    if (!state_.valid.isInitialized)
     {
         throw std::runtime_error("UIクラスが初期化されていません。");
     }
 
-    if(!state_.valid.isBeginFrame)
+    if (!state_.valid.isBeginFrame)
     {
         throw std::runtime_error("BeginFrameが呼び出されていません。");
     }
 
-    if(drawer_ == nullptr)
+    if (drawer_ == nullptr)
     {
         throw std::runtime_error("Drawerがセットされていません。");
     }
@@ -151,11 +151,11 @@ void NiGui::JudgeClickRect(const NiVec2& _leftTop, const NiVec2& _size, NiGui_In
     bool& trigger = _input.isTrigger;
     bool& release = _input.isRelease;
 
-    if(leftTop.x <= input_.GetMousePos().x && input_.GetMousePos().x <= leftTop.x + _size.x &&
+    if (leftTop.x <= input_.GetMousePos().x && input_.GetMousePos().x <= leftTop.x + _size.x &&
         leftTop.y <= input_.GetMousePos().y && input_.GetMousePos().y <= leftTop.y + _size.y)
     {
         hover = true;
-        if(input_.TriggerLeft())
+        if (input_.TriggerLeft())
         {
             trigger = true;
         }
@@ -170,7 +170,7 @@ void NiGui::JudgeClickRect(const NiVec2& _leftTop, const NiVec2& _size, NiGui_In
         trigger = false;
     }
 
-    if(input_.ReleaseLeft())
+    if (input_.ReleaseLeft())
     {
         release = true;
     }
@@ -282,7 +282,7 @@ void NiGui::ClearData()
         }
         if (buffer.areaToItem.size() > setting_.deleteElementThreshold) setting_.deleteElementThreshold *= 2;
     }
-    
+
     return;
 }
 
@@ -317,7 +317,7 @@ void NiGui::ClampRect(NiVec2& _leftTop, const NiVec2& _size, const NiVec2& _pare
 }
 
 void NiGui::OffsetUpdate(
-    const std::string& _id, 
+    const std::string& _id,
     const NiVec2& _originLeftTop,
     const NiGui_Transform2dEx& _transform,
     NiVec2& _offset)
