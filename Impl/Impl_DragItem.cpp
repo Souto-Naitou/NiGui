@@ -1,6 +1,6 @@
 #include "../NiGui.h"
 
-std::string NiGui::DragItemArea(const std::string & _id, const std::string & _textureName, const NiVec4 & _color, const NiVec2 & _position, const NiVec2 & _size, const NiGui_StandardPoint _anchor, const NiGui_StandardPoint _pivot)
+std::string NiGui::DragItemArea(const std::string& _id, const std::string& _textureName, const NiVec4& _color, const NiVec2& _position, const NiVec2& _size, const NiGui_StandardPoint _anchor, const NiGui_StandardPoint _pivot)
 {
     NiGui_Transform2dEx transformEx = {};
     transformEx.position = _position;
@@ -10,7 +10,7 @@ std::string NiGui::DragItemArea(const std::string & _id, const std::string & _te
 
     /// =============
     /// 当たり判定と挙動
-    
+
     NiGui_InputState istate = {};
 
     /// 当たり判定
@@ -43,7 +43,7 @@ std::string NiGui::DragItemAreaBehavior(const std::string& _id, bool _isHover, b
     {
         return {};
     }
-    
+
 }
 
 std::string NiGui::DragItemBehavior(const std::string& _id, const NiGui_InputState& _inputState, NiGui_Transform2dEx& _transform, const NiVec2& _originLeftTop)
@@ -59,7 +59,7 @@ std::string NiGui::DragItemBehavior(const std::string& _id, const NiGui_InputSta
     OffsetUpdate(_id, _originLeftTop, _transform, offset);
 
 
-    if (_inputState.isRelease && state_.componentID.active == _id) 
+    if (_inputState.isRelease && state_.componentID.active == _id)
     {
         for (auto& areaToItem : state_.buffer.areaToItem)
         {
