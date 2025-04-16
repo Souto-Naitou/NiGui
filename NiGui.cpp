@@ -382,7 +382,7 @@ void NiGui::PostProcessComponents()
 
     if (componentID.typeActive == "DragItem" && !componentID.active.empty())
     {
-        int max = 0;
+        uint32_t max = 0;
         for (auto& itr : dragItemData_)
         {
             if (itr.second.zOrder > max)
