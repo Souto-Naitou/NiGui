@@ -28,7 +28,9 @@ bool NiGui::BeginDiv(const std::string& _id, const std::string& _textureName, co
     divData.textureName = _textureName;
     divData.color = _color;
     divData.leftTop = transformEx.position;
+    divData.texLeftTop = transformEx.position;
     divData.size = transformEx.size;
+    divData.texSize = transformEx.size;
     divData.zOrder = state_.buffer.currentZOrder++;
     divData.parent = state_.buffer.currentRegion;
 
@@ -73,7 +75,9 @@ bool NiGui::BeginDivMovable(const std::string& _id, const std::string& _textureN
     divData.textureName = _textureName;
     divData.color = _color;
     divData.leftTop = transformEx.position;
+    divData.texLeftTop = transformEx.position;
     divData.size = transformEx.size;
+    divData.texSize = transformEx.size;
     divData.zOrder = state_.buffer.currentZOrder++;
     divData.parent = state_.buffer.currentRegion;
 

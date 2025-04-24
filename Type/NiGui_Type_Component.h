@@ -31,7 +31,9 @@ struct BaseDrawData
     std::string textureName;
     NiVec4 color;
     NiVec2 leftTop;
+    NiVec2 texLeftTop;
     NiVec2 size;
+    NiVec2 texSize;
     uint32_t zOrder;
 };
 

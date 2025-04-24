@@ -6,6 +6,7 @@ NiGui_ButtonState NiGui::Button(
     const NiVec4& _color,
     const NiVec2& _position,
     const NiVec2& _size,
+    const NiVec2& _texSize,
     NiGui_StandardPoint _anchor,
     NiGui_StandardPoint _pivot)
 {
@@ -15,6 +16,13 @@ NiGui_ButtonState NiGui::Button(
 
     NiVec2 posInRegion = _position;
     NiVec2 size = size_;
+
+    NiVec2 texSize = _texSize;
+    if (_texSize.Length() == 0.0f)
+    {
+        texSize = _size;
+    }
+
     if (state_.buffer.currentRegion != nullptr)
     {
         posInRegion = _position + state_.buffer.currentRegion->leftTop;
@@ -22,6 +30,7 @@ NiGui_ButtonState NiGui::Button(
     }
 
     auto leftTop = ComputeLeftTop(posInRegion, _size, size, _anchor, _pivot);
+    auto texLeftTop = ComputeLeftTop(posInRegion, texSize, size, _anchor, _pivot);
 
     // 当たり判定
     JudgeClickRect(leftTop, _size, istate);
@@ -34,7 +43,9 @@ NiGui_ButtonState NiGui::Button(
     buttonImage.textureName = _textureName;
     buttonImage.color = _color;
     buttonImage.leftTop = leftTop;
+    buttonImage.texLeftTop = texLeftTop;
     buttonImage.size = _size;
+    buttonImage.texSize = texSize;
     buttonImage.zOrder = state_.buffer.currentZOrder++;
 
     NiGui_ButtonState result = NiGui_ButtonState::None;
