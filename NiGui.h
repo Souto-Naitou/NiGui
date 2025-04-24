@@ -57,6 +57,7 @@ public: /// UIコンポーネントの追加
         const NiVec4& _color,
         const NiVec2& _position,
         const NiVec2& _size,
+        const NiVec2& _texSize = {},
         NiGui_StandardPoint _anchor = NiGui_StandardPoint::LeftTop,
         NiGui_StandardPoint _pivot = NiGui_StandardPoint::LeftTop
     );

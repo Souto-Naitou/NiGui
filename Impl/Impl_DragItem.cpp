@@ -24,7 +24,9 @@ std::string NiGui::DragItemArea(const std::string& _id, const std::string& _text
     areaData.textureName = _textureName;
     areaData.color = _color;
     areaData.leftTop = transformEx.position;
+    areaData.texLeftTop = transformEx.position;
     areaData.size = _size;
+    areaData.texSize = _size;
     areaData.zOrder = state_.buffer.currentZOrder++;
 
     return result;
@@ -130,7 +132,9 @@ std::string NiGui::DragItem(const std::string& _id, const std::string& _textureN
     itemData.textureName = _textureName;
     itemData.color = _color;
     itemData.leftTop = transformEx.position;
+    itemData.texLeftTop = transformEx.position;
     itemData.size = transformEx.size;
+    itemData.texSize = transformEx.size;
     itemData.zOrder = state_.buffer.currentZOrder++;
 
     return result;
