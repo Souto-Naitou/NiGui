@@ -2,6 +2,9 @@
 
 #include "../Type/NiGui_Type_Core.h"
 
+#include <string>
+#include "../Type/NiGui_Type_Component.h"
+
 class INiGuiDebug
 {
 public:
@@ -15,4 +18,7 @@ protected:
     const NiGuiIO* io_ = nullptr;
     const NiGuiCoreState* state_ = nullptr;
     NiGuiSetting* setting_ = nullptr;
+
+protected:
+    bool GetComponentData(const std::string& _id, BaseDrawData& _out_data);
 };

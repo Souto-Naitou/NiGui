@@ -44,6 +44,16 @@ struct NiGuiFlags
     bool autoPosition;
 };
 
+// Included in NiGuiBuffer
+struct NiGuiDrawData
+{
+    StringMap<ButtonData> button;
+    StringMap<DivData> div;
+    StringMap<DragItemAreaData> dragItemArea;
+    StringMap<DragItemData> dragItem;
+};
+
+// Included in NiGuiCoreState
 struct NiGuiBuffer
 {
     BaseRegionData* currentRegion;
@@ -51,6 +61,7 @@ struct NiGuiBuffer
     NiVec2 currentPos;
     BaseDrawData* currentDrawData;
     StringMap<std::string> areaToItem;
+    NiGuiDrawData drawData;
 };
 
 // Included in NiGuiIO

@@ -5,11 +5,11 @@
 // この構造体はUIクラスの内部で使用されます。
 
 
-#include <string> // string
 #include "../math/NiVec2.h" // NiVec2
 #include "../math/NiVec4.h" // NiVec4
-#include "NiGui_Enum.h" // enums
+#include "./NiGui_Enum.h" // enums
 
+#include <string> // string
 
 // フレックスコンテナのデータ
 struct FlexContainerData

@@ -43,6 +43,9 @@
     <ClCompile Include="Input\NiGui_Input.cpp">
       <Filter>Input</Filter>
     </ClCompile>
+    <ClCompile Include="Interface\NiGui_IDebug.cpp">
+      <Filter>Interface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\NiVec2.h">
@@ -75,6 +78,9 @@
     </ClInclude>
     <ClInclude Include="Input\NiGui_Input.h">
       <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Type\NiGui_Type_Argument.h">
+      <Filter>Type</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

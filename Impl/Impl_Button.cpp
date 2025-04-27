@@ -10,7 +10,7 @@ NiGui_ButtonState NiGui::Button(
     NiGui_StandardPoint _anchor,
     NiGui_StandardPoint _pivot)
 {
-    auto& buttonImage = buttonImages_[_id];
+    auto& buttonImage = state_.buffer.drawData.button[_id];
     NiGui_InputState istate = {};
     bool isHeld = false;
 
@@ -61,6 +61,20 @@ NiGui_ButtonState NiGui::Button(
     return result;
 }
 
+NiGui_ButtonState NiGui::Button(const NiGui_Arg_Button& _setting)
+{
+    return NiGui::Button(
+        _setting.id,
+        _setting.textureName,
+        _setting.color,
+        _setting.position,
+        _setting.size,
+        _setting.texSize,
+        _setting.anchor,
+        _setting.pivot
+    );
+}
+
 bool NiGui::ButtonBehavior(const std::string& _id, const NiGui_InputState& _inputState, bool& _out_held)
 {
     SetComponentId(_inputState, _id, "Button");
@@ -81,7 +95,7 @@ bool NiGui::ButtonBehavior(const std::string& _id, const NiGui_InputState& _inpu
 
 void NiGui::ButtonDataEnqueue()
 {
-    for(auto& buttonImage : buttonImages_)
+    for(auto& buttonImage : state_.buffer.drawData.button)
     {
         // 描画クラスにデータを追加
         drawer_->EnqueueDrawInfo(&buttonImage.second);
