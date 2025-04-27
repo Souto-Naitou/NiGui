@@ -23,7 +23,7 @@ bool NiGui::BeginDiv(const std::string& _id, const std::string& _textureName, co
     DivBehavior(_id, input.isHover, input.isTrigger);
 
     /// データの更新
-    auto& divData = divData_[_id];
+    auto& divData = state_.buffer.drawData.div[_id];
     divData.id = _id;
     divData.textureName = _textureName;
     divData.color = _color;
@@ -39,6 +39,19 @@ bool NiGui::BeginDiv(const std::string& _id, const std::string& _textureName, co
 
 
     return true;
+}
+
+bool NiGui::BeginDiv(const NiGui_Arg_Div& _setting)
+{
+    return NiGui::BeginDiv(
+        _setting.id,
+        _setting.textureName,
+        _setting.color,
+        _setting.position,
+        _setting.size,
+        _setting.anchor,
+        _setting.pivot
+    );
 }
 
 bool NiGui::BeginDivMovable(const std::string& _id, const std::string& _textureName, const NiVec4& _color, const NiVec2& _position, const NiVec2& _size, const NiGui_StandardPoint _anchor, const NiGui_StandardPoint _pivot)
@@ -70,7 +83,7 @@ bool NiGui::BeginDivMovable(const std::string& _id, const std::string& _textureN
     OffsetUpdate(_id, originLeftTop, transformEx, regionDiff);
 
     /// データの更新
-    auto& divData = divData_[_id];
+    auto& divData = state_.buffer.drawData.div[_id];
     divData.id = _id;
     divData.textureName = _textureName;
     divData.color = _color;
@@ -85,6 +98,19 @@ bool NiGui::BeginDivMovable(const std::string& _id, const std::string& _textureN
     state_.buffer.currentRegion = dynamic_cast<BaseRegionData*>(&divData);
 
     return true;
+}
+
+bool NiGui::BeginDivMovable(const NiGui_Arg_Div& _setting)
+{
+    return NiGui::BeginDivMovable(
+        _setting.id,
+        _setting.textureName,
+        _setting.color,
+        _setting.position,
+        _setting.size,
+        _setting.anchor,
+        _setting.pivot
+    );
 }
 
 void NiGui::EndDiv()
@@ -109,7 +135,7 @@ void NiGui::DivBehavior(const std::string& _id, bool _isHover, bool _isTrigger)
 
 void NiGui::DivDataEnqueue()
 {
-    for (auto& divData : divData_)
+    for (auto& divData : state_.buffer.drawData.div)
     {
         // 描画クラスにデータを追加
         drawer_->EnqueueDrawInfo(&divData.second);

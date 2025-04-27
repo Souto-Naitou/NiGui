@@ -170,6 +170,7 @@
     <ClCompile Include="Impl\Impl_Div.cpp" />
     <ClCompile Include="Impl\Impl_DragItem.cpp" />
     <ClCompile Include="Input\NiGui_Input.cpp" />
+    <ClCompile Include="Interface\NiGui_IDebug.cpp" />
     <ClCompile Include="Interface\NiGui_IDrawer.cpp" />
     <ClCompile Include="Math\NiVec2.cpp" />
     <ClCompile Include="Math\NiVec3.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="Math\NiVec4.h" />
     <ClInclude Include="NiGui.h" />
     <ClInclude Include="Type\NiGui_Enum.h" />
+    <ClInclude Include="Type\NiGui_Type_Argument.h" />
     <ClInclude Include="Type\NiGui_Type_Component.h" />
     <ClInclude Include="Type\NiGui_Type_Core.h" />
     <ClInclude Include="Type\NiGui_Type_Various.h" />

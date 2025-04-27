@@ -1,4 +1,4 @@
-#include "NiGui.h"
+#include "./NiGui.h"
 
 #include <stdexcept> // runtime_error
 #include <cassert>
@@ -22,11 +22,6 @@ const NiVec4        NiGui::BLUE = { 0.0f, 0.0f, 1.0f, 1.0f };
 const NiVec4        NiGui::YELLOW = { 1.0f, 1.0f, 0.0f, 1.0f };
 const NiVec4        NiGui::CIAN = { 0.0f, 1.0f, 1.0f, 1.0f };
 const NiVec4        NiGui::MAGENTA = { 1.0f, 0.0f, 1.0f, 1.0f };
-
-std::unordered_map<std::string, ButtonData> NiGui::buttonImages_ = std::unordered_map<std::string, ButtonData>();
-std::unordered_map<std::string, DivData> NiGui::divData_ = std::unordered_map<std::string, DivData>();
-std::unordered_map<std::string, DragItemAreaData> NiGui::dragItemAreaData_ = std::unordered_map<std::string, DragItemAreaData>();
-std::unordered_map<std::string, DragItemData> NiGui::dragItemData_ = std::unordered_map<std::string, DragItemData>();
 
 std::unordered_map<std::string, NiVec2> NiGui::divOffset_ = std::unordered_map<std::string, NiVec2>();
 std::unordered_map<std::string, NiVec2> NiGui::dragItemOffset_ = std::unordered_map<std::string, NiVec2>();
@@ -252,10 +247,7 @@ NiVec2 NiGui::ComputeLeftTop(const NiVec2& _position, const NiVec2& _size, const
 
 void NiGui::ClearData()
 {
-    buttonImages_.clear();
-    divData_.clear();
-    dragItemAreaData_.clear();
-    dragItemData_.clear();
+    auto& drawData = state_.buffer.drawData;
 
     auto& cid = state_.componentID;
     auto& buffer = state_.buffer;
@@ -275,6 +267,14 @@ void NiGui::ClearData()
             {
                 deleteKeys.push_back(areaToItem.first);
             }
+            else if (drawData.dragItemArea.find(areaToItem.first.c_str()) == drawData.dragItemArea.end())
+            {
+                deleteKeys.push_back(areaToItem.first);
+            }
+            else if (drawData.dragItem.find(areaToItem.second.c_str()) == drawData.dragItem.end())
+            {
+                deleteKeys.push_back(areaToItem.first);
+            }
         }
         for (auto& key : deleteKeys)
         {
@@ -282,6 +282,11 @@ void NiGui::ClearData()
         }
         if (buffer.areaToItem.size() > setting_.deleteElementThreshold) setting_.deleteElementThreshold *= 2;
     }
+
+    drawData.button.clear();
+    drawData.div.clear();
+    drawData.dragItem.clear();
+    drawData.dragItemArea.clear();
 
     return;
 }
@@ -356,6 +361,7 @@ void NiGui::PostProcessComponents()
 {
     auto& componentID = state_.componentID;
     auto& componentTime = state_.time;
+    auto& drawData = state_.buffer.drawData;
 
     if (!io_.input.isLeft && io_.input.isLeftPre)
     {
@@ -383,7 +389,7 @@ void NiGui::PostProcessComponents()
     if (componentID.typeActive == "DragItem" && !componentID.active.empty())
     {
         uint32_t max = 0;
-        for (auto& itr : dragItemData_)
+        for (auto& itr : drawData.dragItem)
         {
             if (itr.second.zOrder > max)
             {
@@ -394,12 +400,12 @@ void NiGui::PostProcessComponents()
         int currentIndex = 0;
         StringMap<int> newZMap;
 
-        for (auto itr = dragItemData_.begin(); itr != dragItemData_.end(); ++itr)
+        for (auto itr = drawData.dragItem.begin(); itr != drawData.dragItem.end(); ++itr)
         {
             auto& current = itr->second;
-            auto& missing = std::next(dragItemData_.begin(), missingIndex)->second;
+            auto& missing = std::next(drawData.dragItem.begin(), missingIndex)->second;
 
-            if (current.zOrder < dragItemData_[componentID.active].zOrder)
+            if (current.zOrder < drawData.dragItem[componentID.active].zOrder)
             {
                 newZMap[current.id] = current.zOrder;
                 ++currentIndex;
@@ -426,7 +432,7 @@ void NiGui::PostProcessComponents()
         newZMap[componentID.active] = max;
         for (auto& itr : newZMap)
         {
-            dragItemData_[itr.first].zOrder = itr.second;
+            drawData.dragItem[itr.first].zOrder = itr.second;
         }
     }
 

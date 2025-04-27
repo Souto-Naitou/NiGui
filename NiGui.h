@@ -1,13 +1,14 @@
 #pragma once
 
-#include "Type/NiGui_Type_Component.h" // ComponentTypes
-#include "Type/NiGui_Type_Core.h" // NiGuiCoreState
-#include "Type/NiGui_Type_Various.h" // 
-#include "Type/NiGui_Enum.h" // enums
-#include "math/NiVec2.h" // NiVec2
-#include "Input/NiGui_Input.h" // NiUI_Input
-#include "Interface/NiGui_IDrawer.h"
-#include "Interface/NiGui_IDebug.h"
+#include "./Type/NiGui_Type_Component.h" // ComponentTypes
+#include "./Type/NiGui_Type_Core.h" // NiGuiCoreState
+#include "./Type/NiGui_Type_Various.h"
+#include "./Type/NiGui_Type_Argument.h"
+#include "./Type/NiGui_Enum.h" // enums
+#include "./math/NiVec2.h" // NiVec2
+#include "./Input/NiGui_Input.h" // NiUI_Input
+#include "./Interface/NiGui_IDrawer.h"
+#include "./Interface/NiGui_IDebug.h"
 
 #include <unordered_map> // unordered_map
 #include <string> // string
@@ -62,6 +63,8 @@ public: /// UIコンポーネントの追加
         NiGui_StandardPoint _pivot = NiGui_StandardPoint::LeftTop
     );
 
+    static NiGui_ButtonState Button(const NiGui_Arg_Button& _setting);
+
     // Divの追加
     // textureNameが空の場合はデフォルトの画像が使用されます。
     static bool BeginDiv(
@@ -73,6 +76,8 @@ public: /// UIコンポーネントの追加
         NiGui_StandardPoint _anchor = NiGui_StandardPoint::LeftTop,
         NiGui_StandardPoint _pivot = NiGui_StandardPoint::LeftTop
     );
+
+    static bool BeginDiv(const NiGui_Arg_Div& _setting);
 
     static void EndDiv();
 
@@ -88,6 +93,8 @@ public: /// UIコンポーネントの追加
         const NiGui_StandardPoint _pivot = NiGui_StandardPoint::LeftTop
     );
 
+    static bool BeginDivMovable(const NiGui_Arg_Div& _setting);
+
     static std::string DragItemArea(
         const std::string& _id,
         const std::string& _textureName,
@@ -98,6 +105,8 @@ public: /// UIコンポーネントの追加
         const NiGui_StandardPoint _pivot = NiGui_StandardPoint::LeftTop
     );
 
+    static std::string DragItemArea(const NiGui_Arg_DragItemArea& _setting);
+
     static std::string DragItem(
         const std::string& _id,
         const std::string& _textureName,
@@ -107,6 +116,10 @@ public: /// UIコンポーネントの追加
         const NiGui_StandardPoint _anchor = NiGui_StandardPoint::LeftTop,
         const NiGui_StandardPoint _pivot = NiGui_StandardPoint::LeftTop
     );
+
+    static std::string DragItem(const NiGui_Arg_DragItem& _setting);
+
+    static void SetItemToArea(const std::string& _itemID, const std::string& _areaID);
 
     // 座標自動計算を有効にする
     static void EnableAutoPosition() { state_.flags.autoPosition = true; };
@@ -143,29 +156,23 @@ private: /// メンバ変数
 
     // 確認用フラグ
 
-    static NiGuiIO           io_;
-    static NiGuiCoreState    state_;
-    static NiGuiSetting      setting_;
-    static NiGuiStyle        style_;
+    static NiGuiIO              io_;
+    static NiGuiCoreState       state_;
+    static NiGuiSetting         setting_;
+    static NiGuiStyle           style_;
 
     // 入力データ
-    static NiGui_Input       input_;
+    static NiGui_Input          input_;
 
     // ウィンドウのサイズ
-    static NiVec2           leftTop_;
-    static NiVec2           size_;
+    static NiVec2               leftTop_;
+    static NiVec2               size_;
 
     // 描画クラス
-    static INiGuiDrawer*         drawer_;
+    static INiGuiDrawer*        drawer_;
 
     // デバッグクラス
-    static INiGuiDebug*      debug_;
-
-    // コンポーネントのリスト
-    static std::unordered_map<std::string, ButtonData> buttonImages_;
-    static std::unordered_map<std::string, DivData> divData_;
-    static std::unordered_map<std::string, DragItemAreaData> dragItemAreaData_;
-    static std::unordered_map<std::string, DragItemData> dragItemData_;
+    static INiGuiDebug*         debug_;
 
     // エンドユーザーが変更したデータ
     static std::unordered_map<std::string, NiVec2> divOffset_;
