@@ -172,6 +172,7 @@
     <ClCompile Include="Input\NiGui_Input.cpp" />
     <ClCompile Include="Interface\NiGui_IDebug.cpp" />
     <ClCompile Include="Interface\NiGui_IDrawer.cpp" />
+    <ClCompile Include="Math\NiQuaternion.cpp" />
     <ClCompile Include="Math\NiVec2.cpp" />
     <ClCompile Include="Math\NiVec3.cpp" />
     <ClCompile Include="Math\NiVec4.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="Input\NiGui_Input.h" />
     <ClInclude Include="Interface\NiGui_IDebug.h" />
     <ClInclude Include="Interface\NiGui_IDrawer.h" />
+    <ClInclude Include="Math\NiQuaternion.h" />
     <ClInclude Include="Math\NiVec2.h" />
     <ClInclude Include="Math\NiVec3.h" />
     <ClInclude Include="Math\NiVec4.h" />

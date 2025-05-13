@@ -46,6 +46,9 @@
     <ClCompile Include="Interface\NiGui_IDebug.cpp">
       <Filter>Interface</Filter>
     </ClCompile>
+    <ClCompile Include="Math\NiQuaternion.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\NiVec2.h">
@@ -81,6 +84,9 @@
     </ClInclude>
     <ClInclude Include="Type\NiGui_Type_Argument.h">
       <Filter>Type</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\NiQuaternion.h">
+      <Filter>Math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
