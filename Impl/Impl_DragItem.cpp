@@ -5,8 +5,9 @@ std::string NiGui::DragItemArea(const std::string& _id, const std::string& _text
     NiGui_Transform2dEx transformEx = {};
     transformEx.position = _position;
     transformEx.size = _size;
+    NiGui_Transform2dEx transformExForDraw = {};
 
-    ComputeRect(transformEx, _anchor, _pivot);
+    ComputeRect(transformEx, transformExForDraw, _anchor, _pivot);
 
     /// =============
     /// 当たり判定と挙動
@@ -133,7 +134,9 @@ std::string NiGui::DragItem(const std::string& _id, const std::string& _textureN
     transformEx.position = _position;
     transformEx.size = _size;
 
-    ComputeRect(transformEx, _anchor, _pivot);
+    NiGui_Transform2dEx transformExForDraw = {};
+
+    ComputeRect(transformEx, transformExForDraw, _anchor, _pivot);
 
     NiVec2 originLeftTop = transformEx.position;
 

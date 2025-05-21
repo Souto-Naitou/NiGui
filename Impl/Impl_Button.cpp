@@ -14,8 +14,15 @@ NiGui_ButtonState NiGui::Button(
     NiGui_InputState istate = {};
     bool isHeld = false;
 
+    // 描画用座標
+    NiVec2 leftTopForDraw = {};
+    // 当たり判定用座標
+    NiVec2 leftTopForJudge = {};
+
     NiVec2 posInRegion = _position;
-    NiVec2 size = size_;
+    NiVec2 parentSizeForDraw = io_.windowInfo.clientSize;
+    NiVec2 parentSizeForJudge = size_;
+    float gScale = io_.windowInfo.windowScale;
 
     NiVec2 texSize = _texSize;
     if (_texSize.Length() == 0.0f)
@@ -26,14 +33,16 @@ NiGui_ButtonState NiGui::Button(
     if (state_.buffer.currentRegion != nullptr)
     {
         posInRegion = _position + state_.buffer.currentRegion->leftTop;
-        size = state_.buffer.currentRegion->size;
+        parentSizeForJudge = state_.buffer.currentRegion->size * gScale;
+        parentSizeForDraw = state_.buffer.currentRegion->size;
     }
 
-    auto leftTop = ComputeLeftTop(posInRegion, _size, size, _anchor, _pivot);
-    auto texLeftTop = ComputeLeftTop(posInRegion, texSize, size, _anchor, _pivot);
+    leftTopForJudge = ComputeLeftTop(posInRegion * gScale, _size * gScale, parentSizeForJudge, _anchor, _pivot);
+    leftTopForDraw = ComputeLeftTop(posInRegion, _size, parentSizeForDraw, _anchor, _pivot);
+    auto texLeftTop = ComputeLeftTop(posInRegion, texSize, parentSizeForDraw, _anchor, _pivot);
 
     // 当たり判定
-    JudgeClickRect(leftTop, _size, istate);
+    JudgeClickRect(leftTopForJudge, _size * gScale, istate);
 
     // ボタンの挙動
     bool onButton = ButtonBehavior(_id, istate, isHeld);
@@ -42,7 +51,7 @@ NiGui_ButtonState NiGui::Button(
     buttonImage.id = _id;
     buttonImage.textureName = _textureName;
     buttonImage.color = _color;
-    buttonImage.leftTop = leftTop;
+    buttonImage.leftTop = leftTopForDraw;
     buttonImage.texLeftTop = texLeftTop;
     buttonImage.size = _size;
     buttonImage.texSize = texSize;

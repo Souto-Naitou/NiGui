@@ -9,7 +9,9 @@ bool NiGui::BeginDiv(const std::string& _id, const std::string& _textureName, co
     transformEx.position = _position;
     transformEx.size = _size;
 
-    ComputeRect(transformEx, _anchor, _pivot);
+    NiGui_Transform2dEx transformExForJudge = {};
+
+    ComputeRect(transformEx, transformExForJudge, _anchor, _pivot);
 
     /// =============
     /// 当たり判定と挙動
@@ -56,41 +58,49 @@ bool NiGui::BeginDiv(const NiGui_Arg_Div& _setting)
 
 bool NiGui::BeginDivMovable(const std::string& _id, const std::string& _textureName, const NiVec4& _color, const NiVec2& _position, const NiVec2& _size, const NiGui_StandardPoint _anchor, const NiGui_StandardPoint _pivot)
 {
-    NiGui_Transform2dEx transformEx = {};
-    transformEx.position = _position;
-    transformEx.size = _size;
+    float gScale = io_.windowInfo.windowScale;
 
-    ComputeRect(transformEx, _anchor, _pivot);
+    NiGui_Transform2dEx transformExForDraw = {};
+    transformExForDraw.position = _position;
+    transformExForDraw.size = _size;
 
-    NiVec2 originLeftTop = transformEx.position;
+    // 判定用
+    NiGui_Transform2dEx transformExForJudge = {};
+    transformExForJudge.position = _position * gScale;
+    transformExForJudge.size = _size * gScale;
+
+    ComputeRect(transformExForDraw, transformExForJudge, _anchor, _pivot);
+
+    NiVec2 originLeftTop = transformExForDraw.position;
 
     /// =============
     /// 当たり判定と挙動
     
     NiGui_InputState istate = {};
 
-    transformEx.position += divOffset_[_id];
-    ClampRect(transformEx.position, _size, transformEx.parentPos, transformEx.parentSize);
+    transformExForDraw.position += divOffset_[_id];
+    transformExForJudge.position += divOffset_[_id] * gScale;
+    ClampRect(transformExForDraw.position, _size, transformExForDraw.parentPos, transformExForDraw.parentSize);
 
     /// 当たり判定
-    JudgeClickRect(transformEx.position, transformEx.size, istate);
+    JudgeClickRect(transformExForJudge.position, transformExForJudge.size, istate);
 
     /// 挙動
     auto& regionDiff = divOffset_[_id];
 
     DivBehavior(_id, istate.isHover, istate.isTrigger);
 
-    OffsetUpdate(_id, originLeftTop, transformEx, regionDiff);
+    OffsetUpdate(_id, originLeftTop, transformExForDraw, regionDiff);
 
     /// データの更新
     auto& divData = state_.buffer.drawData.div[_id];
     divData.id = _id;
     divData.textureName = _textureName;
     divData.color = _color;
-    divData.leftTop = transformEx.position;
-    divData.texLeftTop = transformEx.position;
-    divData.size = transformEx.size;
-    divData.texSize = transformEx.size;
+    divData.leftTop = transformExForDraw.position;
+    divData.texLeftTop = transformExForDraw.position;
+    divData.size = transformExForDraw.size;
+    divData.texSize = transformExForDraw.size;
     divData.zOrder = state_.buffer.currentZOrder++;
     divData.parent = state_.buffer.currentRegion;
 
@@ -142,25 +152,30 @@ void NiGui::DivDataEnqueue()
     }
 }
 
-void NiGui::ComputeRect(NiGui_Transform2dEx& _transform, const NiGui_StandardPoint _anchor, const NiGui_StandardPoint _pivot)
+void NiGui::ComputeRect(NiGui_Transform2dEx& _transformForDraw, NiGui_Transform2dEx& _transformForJudge, const NiGui_StandardPoint _anchor, const NiGui_StandardPoint _pivot)
 {
     /// 親の座標とサイズを取得
     if (state_.buffer.currentRegion == nullptr)
     {
-        _transform.parentSize = size_;
+        _transformForDraw.parentSize = io_.windowInfo.clientSize;
+        _transformForJudge.parentSize = size_;
     }
     else
     {
-        _transform.parentPos = state_.buffer.currentRegion->leftTop;
-        _transform.parentSize = state_.buffer.currentRegion->size;
+        _transformForDraw.parentPos = state_.buffer.currentRegion->leftTop;
+        _transformForDraw.parentSize = state_.buffer.currentRegion->size;
+        _transformForJudge.parentPos = state_.buffer.currentRegion->leftTop * io_.windowInfo.windowScale;
+        _transformForJudge.parentSize = state_.buffer.currentRegion->size * io_.windowInfo.windowScale;
     }
 
     /// 親の座標を考慮した座標を計算
     if (state_.buffer.currentRegion != nullptr)
     {
-        _transform.position += state_.buffer.currentRegion->leftTop;
+        _transformForDraw.position += state_.buffer.currentRegion->leftTop;
+        _transformForJudge.position += state_.buffer.currentRegion->leftTop * io_.windowInfo.windowScale;
     }
 
     /// ピボットとアンカーを考慮した座標を計算
-    _transform.position = ComputeLeftTop(_transform.position, _transform.size, _transform.parentSize, _anchor, _pivot);
+    _transformForDraw.position = ComputeLeftTop(_transformForDraw.position, _transformForDraw.size, _transformForDraw.parentSize, _anchor, _pivot);
+    _transformForJudge.position = ComputeLeftTop(_transformForJudge.position, _transformForJudge.size, _transformForJudge.parentSize, _anchor, _pivot);
 }
