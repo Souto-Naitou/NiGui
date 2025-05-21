@@ -98,6 +98,13 @@ struct NiGuiColor
     NiVec4 backGround;
 };
 
+// Included in NiGuiIO
+struct NiGuiWindowInfo
+{
+    NiVec2 clientSize;
+    float windowScale; // ウィンドウのスケール(windowsize / clientsize)
+};
+
 struct NiGuiStyle
 {
     NiGuiColor color;
@@ -113,6 +120,7 @@ struct NiGuiIO
     NiGuiInputData input;
     NiGuiAudioHandle audioHnd;
     NiGuiAudioHandler audioHandler;
+    NiGuiWindowInfo windowInfo;
 };
 
 

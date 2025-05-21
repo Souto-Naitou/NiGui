@@ -6,11 +6,11 @@
 NiGui_Input         NiGui::input_ = NiGui_Input();
 NiVec2              NiGui::leftTop_ = { 0, 0 };
 NiVec2              NiGui::size_ = { 0, 0 };
-INiGuiDrawer* NiGui::drawer_ = nullptr;
+INiGuiDrawer*       NiGui::drawer_ = nullptr;
 
 NiGuiIO             NiGui::io_ = NiGuiIO();
 NiGuiCoreState      NiGui::state_ = NiGuiCoreState();
-INiGuiDebug* NiGui::debug_ = nullptr;
+INiGuiDebug*        NiGui::debug_ = nullptr;
 NiGuiSetting        NiGui::setting_ = NiGuiSetting();
 NiGuiStyle          NiGui::style_ = NiGuiStyle();
 
@@ -59,6 +59,16 @@ void NiGui::BeginFrame()
 
     // 確認用フラグを立てる
     state_.valid.isBeginFrame = true;
+
+    // ウィンドウ比率の計算
+    if (io_.windowInfo.clientSize != 0.0f)
+    {
+        io_.windowInfo.windowScale = size_.x / io_.windowInfo.clientSize.x;
+    }
+    else
+    {
+        io_.windowInfo.windowScale = 1.0f;
+    }
 
     return;
 }
@@ -329,7 +339,10 @@ void NiGui::OffsetUpdate(
 {
     if (state_.componentID.active == _id)
     {
-        _offset += io_.input.differencePos;
+        if (io_.windowInfo.windowScale != 0.0f)
+        {
+            _offset += io_.input.differencePos / io_.windowInfo.windowScale;
+        }
     }
 
     if (input_.ReleaseLeft() && state_.componentID.active == _id)

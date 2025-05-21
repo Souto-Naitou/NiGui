@@ -131,6 +131,7 @@ public: /// セッター
     static void SetDrawer(INiGuiDrawer* _drawer) { drawer_ = _drawer; }
     static void SetDebug(INiGuiDebug* _debug) { debug_ = _debug; }
     static void SetWindowInfo(const NiVec2& _size, const NiVec2& _leftTop) { size_ = _size; leftTop_ = _leftTop; }
+    static void SetClientSize(const NiVec2& _size) { io_.windowInfo.clientSize = _size; }
     static void SetHoverSound(uint32_t _hoverSE) { io_.audioHnd.buttonHover = _hoverSE; }
     static void SetHoverSound(void* _hoverSE) { io_.audioHandler.buttonHover = _hoverSE; }
     static void SetConfirmSound(uint32_t _confirmSE) { io_.audioHnd.buttonConfirm = _confirmSE; }
@@ -205,7 +206,7 @@ private: /// その他
     static NiVec2 ComputeStandardPoint(NiGui_StandardPoint _stdpoint);
     static NiVec2 ComputeLeftTop(const NiVec2& _position, const NiVec2& _size, const NiVec2& _parentSize, NiGui_StandardPoint _anchor, NiGui_StandardPoint _pivot);
     // 各種座標を取得
-    static void ComputeRect(NiGui_Transform2dEx& _transform, const NiGui_StandardPoint _anchor, const NiGui_StandardPoint _pivot);
+    static void ComputeRect(NiGui_Transform2dEx& _transformForDraw, NiGui_Transform2dEx& _transformForJudge, const NiGui_StandardPoint _anchor, const NiGui_StandardPoint _pivot);
     static void ClearData();
     static void SavePreData();
     static void CopyInputData();
