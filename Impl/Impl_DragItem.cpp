@@ -182,6 +182,11 @@ std::string NiGui::DragItem(const NiGui_Arg_DragItem& _setting)
     );
 }
 
+void NiGui::ResetItemToArea()
+{
+    state_.buffer.areaToItem.clear();
+}
+
 void NiGui::SetItemToArea(const std::string& _itemID, const std::string& _areaID)
 {
     state_.buffer.areaToItem[_areaID] = _itemID;
