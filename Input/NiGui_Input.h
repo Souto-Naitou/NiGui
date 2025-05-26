@@ -77,7 +77,7 @@ public: // 入力データ取得
 
 private:
     // マウスデータ
-    MouseData mouseData_;
+    MouseData mouseData_ = {};
 
     HWND hWnd_ = nullptr;
 

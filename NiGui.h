@@ -145,10 +145,10 @@ public: /// ゲッター
     static NiGuiSetting& GetSetting() { return setting_; }
     static const NiGuiStyle& GetStyle() { return style_; }
 
-    static std::string GetActiveComponentID() { return state_.componentID.active; }
-    static std::string GetHoverComponentID() { return state_.componentID.hover; }
-    static std::string GetActiveComponentType() { return state_.componentID.typeActive; }
-    static std::string GetHoverComponentType() { return state_.componentID.typeHover; }
+    static const std::string& GetActiveComponentID() { return state_.componentID.active; }
+    static const std::string& GetHoverComponentID() { return state_.componentID.hover; }
+    static const std::string& GetActiveComponentType() { return state_.componentID.typeActive; }
+    static const std::string& GetHoverComponentType() { return state_.componentID.typeHover; }
 
     static uint32_t GetActiveTime() { return state_.time.active; }
     static uint32_t GetHoverTime() { return state_.time.hover; }
