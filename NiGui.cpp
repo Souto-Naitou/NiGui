@@ -2,15 +2,18 @@
 
 #include <stdexcept> // runtime_error
 #include <cassert>
+#include <map>
+#include <set>
+#include <algorithm>
 
 NiGui_Input         NiGui::input_ = NiGui_Input();
 NiVec2              NiGui::leftTop_ = { 0, 0 };
 NiVec2              NiGui::size_ = { 0, 0 };
-INiGuiDrawer*       NiGui::drawer_ = nullptr;
+INiGuiDrawer* NiGui::drawer_ = nullptr;
 
 NiGuiIO             NiGui::io_ = NiGuiIO();
 NiGuiCoreState      NiGui::state_ = NiGuiCoreState();
-INiGuiDebug*        NiGui::debug_ = nullptr;
+INiGuiDebug* NiGui::debug_ = nullptr;
 NiGuiSetting        NiGui::setting_ = NiGuiSetting();
 NiGuiStyle          NiGui::style_ = NiGuiStyle();
 
@@ -370,6 +373,68 @@ void NiGui::SetComponentId(const NiGui_InputState& _inputState, const std::strin
     }
 }
 
+std::unordered_map<std::string, int> assignMaxZOrder(
+    const std::unordered_map<std::string, int>& zOrderMap_,
+    const std::string& targetKey)
+{
+    std::unordered_map<std::string, int> newMap_;
+    std::map<int, std::string> sortedMap;
+
+    int num_pick = zOrderMap_.at(targetKey);
+    int num_temp = 0;
+    int num_next = 0;
+
+    bool isNextForPick = false;
+    for (const auto& [key, value] : zOrderMap_)
+    {
+        sortedMap[value] = key;
+
+        if (key == targetKey)
+        {
+            num_pick = value;
+            num_temp = value;
+            isNextForPick = true;
+            continue;
+        }
+
+        if (isNextForPick) 
+        {
+            num_next = value;
+            isNextForPick = false;
+        }
+    }
+
+    std::map<int, std::string> newMap = sortedMap;
+    while (true)
+    {
+        auto it = sortedMap.find(num_next);
+        bool isBreak = false;
+        if (it == sortedMap.end()) isBreak = true;
+        else ++it;
+
+        int temp = 0;
+        if (it != sortedMap.end()) temp = it->first;
+
+        newMap[num_temp] = sortedMap[num_next]; // 10
+
+        if (isBreak)
+        {
+            newMap[num_temp] = targetKey;
+            break;
+        }
+
+        num_temp = num_next; // 13
+        num_next = temp; // 15
+    }
+
+    for (auto& [key, value] : newMap)
+    {
+        newMap_[value] = key;
+    }
+
+    return newMap_;
+}
+
 void NiGui::PostProcessComponents()
 {
     auto& componentID = state_.componentID;
@@ -401,51 +466,20 @@ void NiGui::PostProcessComponents()
 
     if (componentID.typeActive == "DragItem" && !componentID.active.empty())
     {
-        uint32_t max = 0;
-        for (auto& itr : drawData.dragItem)
+        std::unordered_map<std::string, int> zmap = {};
+        for (const auto& [key, value] : drawData.dragItem)
         {
-            if (itr.second.zOrder > max)
-            {
-                max = itr.second.zOrder;
-            }
-        }
-        int missingIndex = 0;
-        int currentIndex = 0;
-        StringMap<int> newZMap;
-
-        for (auto itr = drawData.dragItem.begin(); itr != drawData.dragItem.end(); ++itr)
-        {
-            auto& current = itr->second;
-            auto& missing = std::next(drawData.dragItem.begin(), missingIndex)->second;
-
-            if (current.zOrder < drawData.dragItem[componentID.active].zOrder)
-            {
-                newZMap[current.id] = current.zOrder;
-                ++currentIndex;
-                continue;
-            }
-
-            if (currentIndex == 0)
-            {
-                newZMap[current.id] = current.zOrder;
-            }
-            else if (current.zOrder > missing.zOrder)
-            {
-                newZMap[current.id] = missing.zOrder;
-                missingIndex = currentIndex;
-            }
-            else
-            {
-                newZMap[current.id] = newZMap[missing.id];
-                newZMap[missing.id] = current.zOrder;
-            }
-            ++currentIndex;
+            zmap[key] = value.zOrder;
         }
 
-        newZMap[componentID.active] = max;
-        for (auto& itr : newZMap)
+        auto newZMap = assignMaxZOrder(zmap, componentID.active);
+
+        for (const auto& [key, value] : newZMap)
         {
-            drawData.dragItem[itr.first].zOrder = itr.second;
+            if (drawData.dragItem[key].zOrder != value)
+            {
+                drawData.dragItem[key].zOrder = value;
+            }
         }
     }
 
