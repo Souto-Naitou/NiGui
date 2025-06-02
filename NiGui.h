@@ -120,6 +120,7 @@ public: /// UIコンポーネントの追加
     static std::string DragItem(const NiGui_Arg_DragItem& _setting);
 
     static void ResetItemToArea();
+    static void ResetDragItemOffsets();
     static void SetItemToArea(const std::string& _itemID, const std::string& _areaID);
 
     // 座標自動計算を有効にする
