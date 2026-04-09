@@ -9,12 +9,28 @@
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_DynamicDebug|x64">
+      <Configuration>Release_DynamicDebug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|x64">
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <PublicIncludeDirectories>$(MSBuildProjectDirectory);$(PublicIncludeDirectories)</PublicIncludeDirectories>
+    <OutDir>$(MSBuildProjectDirectory)\bin\$(Configuration)\</OutDir>
+    <IntDir>$(MSBuildProjectDirectory)\bin\$(Configuration)\Intermediate\</IntDir>
+    <TargetName>$(ProjectName)</TargetName>
+    <CopyLocalDeploymentContent>false</CopyLocalDeploymentContent>
+    <CopyLocalProjectReference>false</CopyLocalProjectReference>
+    <CopyLocalDebugSymbols>false</CopyLocalDebugSymbols>
+    <CopyCppRuntimeToOutputDir>false</CopyCppRuntimeToOutputDir>
+    <UseStructuredOutput>true</UseStructuredOutput>
+    <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_DynamicDebug|x64'">
     <PublicIncludeDirectories>$(MSBuildProjectDirectory);$(PublicIncludeDirectories)</PublicIncludeDirectories>
     <OutDir>$(MSBuildProjectDirectory)\bin\$(Configuration)\</OutDir>
     <IntDir>$(MSBuildProjectDirectory)\bin\$(Configuration)\Intermediate\</IntDir>
@@ -121,12 +137,79 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </ClCompile>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_DynamicDebug|x64'">
+    <ClCompile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='AddressSanitizer|x64'">
     <ClCompile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PreprocessorDefinitions>NDEBUG</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <SmallerTypeCheck>false</SmallerTypeCheck>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>Default</LanguageStandard_C>
+      <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+      <TranslateIncludes>false</TranslateIncludes>
+      <WarningLevel>Level3</WarningLevel>
+      <TreatWarningAsError>false</TreatWarningAsError>
+      <DiagnosticsFormat>Column</DiagnosticsFormat>
+      <SDLCheck>true</SDLCheck>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <SupportJustMyCode>false</SupportJustMyCode>
+      <Optimization>MinSpace</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <UndefineAllPreprocessorDefinitions>false</UndefineAllPreprocessorDefinitions>
+      <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
+      <PreprocessToFile>false</PreprocessToFile>
+      <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+      <PreprocessKeepComments>false</PreprocessKeepComments>
+      <MinimalRebuild>false</MinimalRebuild>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <RemoveUnreferencedCodeData>true</RemoveUnreferencedCodeData>
+      <ConformanceMode>true</ConformanceMode>
+      <BuildStlModules>false</BuildStlModules>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <GenerateSourceDependencies>false</GenerateSourceDependencies>
+      <SourceDependenciesFile>$(IntDir)</SourceDependenciesFile>
+      <BrowseInformation>false</BrowseInformation>
+      <TreatAngleIncludeAsExternal>false</TreatAngleIncludeAsExternal>
+      <ExternalWarningLevel>InheritWarningLevel</ExternalWarningLevel>
+      <CallingConvention>Cdecl</CallingConvention>
+      <CompileAs>Default</CompileAs>
+      <UseFullPaths>true</UseFullPaths>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
+      <ErrorReporting>Prompt</ErrorReporting>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+    </Lib>
+    <BuildLog>
+      <Path>$(IntDir)$(MSBuildProjectName).log</Path>
+    </BuildLog>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_DynamicDebug|x64'">
     <ClCompile>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>NDEBUG</PreprocessorDefinitions>
@@ -292,6 +375,13 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_DynamicDebug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v145</PlatformToolset>
